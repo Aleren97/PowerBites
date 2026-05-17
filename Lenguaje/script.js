@@ -87,3 +87,35 @@ formulario.addEventListener("submit", function(event){
 
      formulario.reset();
 });
+
+
+
+/*DASHBOARD*/
+
+const alerta = document.getElementsByClassName("alerta");
+
+let inventario = {
+    choco: 25,
+    fresa: 10,
+    nueces: 29
+};
+
+function vender(sabor) {
+
+    if (inventario[sabor] > 0) {
+        
+        inventario[sabor] = inventario[sabor] - 1;
+        
+        let elementoHtml = document.getElementById('stock-' + sabor);
+        if (elementoHtml) {
+            elementoHtml.innerText = inventario[sabor];
+        }
+        
+        console.log(`Venta de ${sabor} registrada. Quedan: ${inventario[sabor]}`);
+    } else {
+        alert(`¡No quedan más barritas de ${sabor}! `);
+    }
+}
+
+window.vender = vender;
+    
