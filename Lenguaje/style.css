@@ -1,0 +1,145 @@
+/* root*/
+
+:root{
+    --negro_carbon : #1A1A1A;
+    --amarillo_volt : #DFFF00;
+    --gris_pesas: #E0E0E0;
+    --verde_salud: #4F7942;
+    --o: #A3C1AD;
+    --crema: #F5F2EB;
+    --marron_almendra: #5C4033;
+    --marron_chocolate: #3D2314;
+    --naranja: #E49B4D;
+    --blanco_leche: #F9F6F0;
+    --azul_electrico: #0052CC;
+    --rojo: #FF3B30;
+    --gris: #F4F5F7;
+}
+
+/*Body*/
+
+.body{
+    display: flex;
+    margin: 20px;
+    background-color: var(--marron_chocolate);
+    flex-direction: column;
+}
+
+/* Header */
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--naranja);
+    width: 100%;
+    height: 75px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header__navs{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.link__nav{
+    display: flex;
+    text-decoration: none;
+    color: var(--negro_carbon);
+}
+
+.link__nav__img{
+    display: flex;
+    text-decoration: none;
+    border: solid, var(--negro_carbon);
+    border-radius: 20px;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    color: var(--negro_carbon);
+}
+
+.usuario{
+    display: inline-flex;
+    height: 35px;
+    width: 35px;
+    justify-self: center;
+}
+
+/*Usuarios*/
+
+
+
+
+/*Registro*/
+
+
+
+.registro__section{
+    display: flex;
+    justify-content: center;
+}
+
+.registro__label{
+    display: flex;
+    justify-content: center;
+    font: 2em sans-serif;
+    color: var(--crema);
+}
+
+.registro__controls{
+    display: flex;
+    flex-direction: column;
+    border: solid, var(--negro_carbon);
+    background-color: var(--naranja);
+    width: 400px;
+    height: 350px;
+    gap: 20px;
+    margin-top: 100px;
+}
+
+.nombre__completo{
+    display: flex;
+    height: 100%;
+    gap: 10px;
+}
+
+
+.registro__input__nombre{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.registro__input__apellido{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.registro__input{
+    display: flex;
+    height: 100%;
+}
+
+.registro__input__contrasena{
+    display: flex;
+    height: 100%;
+}
+
+.registro__input__comprobar{
+    display: flex;
+    height: 100%;
+}
+
+.registro--button{
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    background-color: var(--amarillo_volt);
+}

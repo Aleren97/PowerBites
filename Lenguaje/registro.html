@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+
+    <header class="header">
+        <img src="" alt="" class="header__logo">
+
+        <div class="header__navs">
+            <a href="dashboard.html" class="link__nav">Home</a>
+            <a href="" class="link__nav"></a>
+            <a href="" class="link__nav"></a>
+            <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" class="usuario">Registrarse</a>
+        </div>
+    </header>
+
+     <section class="registro__section">
+        
+        <div class="registro__from">
+
+            <form id="formulario" action="#" class="formulario">
+            <label for="cardInput" class="registro__label">Nuevo usuario</label>
+
+            <div class="registro__controls">
+                <div class="nombre__completo">
+                <input type="text" id="Nombre" class="registro__input__nombre" placeholder="Nombre">
+                <input type="text" id="Apellido" class="registro__input__apellido" placeholder="Apellido">
+                </div>
+                <input type="text" id="DNI" class="registro__input" placeholder="DNI">
+                <input type="text" id="telefono" class="registro__input" placeholder="telefono">
+                <input type="email" id="email" class="registro__input" placeholder="Correo electrónico">
+                <input type="password" id="contrasena" class="registro__input__contrasena" placeholder="Introduzca su contraseña">
+                <input type="password" id="contrasena2" class="registro__input__comprobar" placeholder="Vuelvala a introducirla">
+                
+            </div>
+            <button class="registro--button">Enviar</button>
+            
+        </div>
+        
+        <p id="errorFormulario" class="contact-form__error"></p>
+            <div id="mensajeForm" class="contact-form__success">
+            </div>
+</form>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
