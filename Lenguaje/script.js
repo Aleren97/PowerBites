@@ -26,7 +26,7 @@ formulario.addEventListener("submit", function(event){
     mensajeForm.classList.remove("contact-form__success--error");
 
 
-     if (valorNombre === "") {
+    if (valorNombre === "") {
         errorFormulario.textContent = "El campo nombre es obligatorio.";
         mensajeForm.textContent = "No se ha podido enviar el formulario.";
         mensajeForm.classList.add("contact-form__success--error");
