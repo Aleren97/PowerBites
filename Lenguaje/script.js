@@ -114,19 +114,15 @@ const elementoNombreMenu = document.getElementById("user__nombre");
 const iconoPersona = document.getElementById("usuario");
 const letraInicial = document.getElementById("avatar-inicial");
 
-// Si hay alguien guardado en la sesión, pintamos sus datos en el menú lateral
 if (nombreGuardado && elementoNombreMenu) {
-    // Ponemos el nombre real (ej: "Carlos", "Manuel", "Diego")
     elementoNombreMenu.textContent = nombreGuardado;
 
-    // Sacamos de forma dinámica la inicial de ese usuario específico
     const primeraLetra = nombreGuardado.charAt(0);
 
-    // Si los elementos del avatar existen en la página actual, hacemos el cambio
     if (letraInicial && iconoPersona) {
-        letraInicial.textContent = primeraLetra; // Mete la inicial del usuario real
-        iconoPersona.style.display = "none";     // Oculta el monigote genérico
-        letraInicial.style.display = "flex";     // Muestra el círculo de la letra
+        letraInicial.textContent = primeraLetra; 
+        iconoPersona.style.display = "none";     
+        letraInicial.style.display = "flex";     
     }
 }
     
