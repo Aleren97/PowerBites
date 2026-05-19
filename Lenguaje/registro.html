@@ -8,22 +8,45 @@
 </head>
 <body class="body">
 
-    <header class="header">
-        <img src="" alt="Logo de la pagina" class="header__logo">
-
-        <div class="header__navs">
-            <a href="dashboard.html" class="link__nav">Home</a>
-            <a href="" class="link__nav"></a>
-            <a href="" class="link__nav"></a>
-            <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" class="usuario">Registrarse</a>
+    <div class="header__separado">
+    <aside class="navegador">
+        <div>
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="#" class="link__nav">
+                Contactos
+                </a>
+                <a href="#" class="link__nav">
+                Empresas
+                </a>
+                <a href="#" class="link__nav">
+                Negocios 
+                </a>
+            </nav>
         </div>
-    </header>
+        
+        
+    </aside>
+    </div>
+
+   <div>
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+
 
      <section class="registro__section">
         
         <div class="registro__from">
 
-            <form id="formulario" action="#" class="formulario">
+            <form id="formulario" action="#" class="Formulario">
             <label for="cardInput" class="registro__label">Nuevo usuario</label>
 
             <div class="registro__controls">
@@ -32,13 +55,13 @@
                 <input type="text" id="Apellido" class="registro__input__apellido" placeholder="Apellido">
                 </div>
                 <input type="text" id="DNI" class="registro__input" placeholder="DNI">
-                <input type="text" id="telefono" class="registro__input" placeholder="telefono">
+                <input type="number" id="telefono" class="registro__input" placeholder="telefono">
                 <input type="email" id="email" class="registro__input" placeholder="Correo electrónico">
                 <input type="password" id="contrasena" class="registro__input__contrasena" placeholder="Introduzca su contraseña">
                 <input type="password" id="contrasena2" class="registro__input__comprobar" placeholder="Vuelvala a introducirla">
                 
             </div>
-            <button class="registro--button">Enviar</button>
+            <button type="submit" class="registro--button">Enviar</button>
             
         </div>
         

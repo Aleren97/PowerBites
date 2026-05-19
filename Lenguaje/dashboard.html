@@ -6,40 +6,89 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="body">
 
-    <header class="header">
-        <img src="" alt="Logo de la pagina" class="header__logo">
-
-        <div class="header__navs">
-            <a href="dashboard.html" class="link__nav">Home</a>
-            <a href="" class="link__nav"></a>
-            <a href="" class="link__nav"></a>
-            <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" class="usuario">Registrarse</a>
+    <div class="header__separado">
+    <aside class="navegador">
+        <div>
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" class="link__nav">
+                Dashboard
+                </a>
+                <a href="#" class="link__nav">
+                Contactos
+                </a>
+                <a href="#" class="link__nav">
+                Empresas
+                </a>
+                <a href="#" class="link__nav">
+                Negocios 
+                </a>
+            </nav>
         </div>
-    </header>
+        
+        
+    </aside>
+    </div>
+    
+    <div>
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+
+    <div class="CRM">
+        <h1 class="title__CRM">PowerBites</h1>
+    </div>
 
     <section class="dash__section">
-        <div class="dash__stock">
-    <h3 class="dash__title">Productos</h3>
-    
-    <p class="producto">
-        Chocolate - <span id="stock-choco" class="alerta">25</span>
-        <button onclick="vender('choco')">Vender</button>
-    </p>
-    
-    <p class="producto">
-        Fresa - <span id="stock-fresa" class="alerta">10</span>
-        <button onclick="vender('fresa')">Vender</button>
-    </p>
-    
-    <p class="producto">
-        Nueces - <span id="stock-nueces" class="alerta">29</span>
-        <button onclick="vender('nueces')">Vender</button>
-    </p>
-</div>
-
+                <div class="dash__beneficios">
+                    <h3 class="dash__title">Valor de las PowerBites</h3>
+                    <h2 class="dash__ingreso">$24,500.00</h2>
+                    <span class="dash__superado">↑ 12% este mes</span>
+                </div>
+                <div class="dash__negocios">
+                    <h3 class="dash__title">Negocios Ganados</h3>
+                    <h2 class="dash__cantidad">14</h2>
+                    <span class="dash__meta">Meta mensual: 20</span>
+                </div>
+                <div class="dash__contratos">
+                    <h3 class="dash__title">Contactos Nuevos</h3>
+                    <h2 class="dash__cantidad">48</h2>
+                    <span class="dash__sincronizados">Sincronizados vía web</span>
+                </div>
     </section>
+
+    <section class="dash__panel">
+            <div class="dash__form">
+                <label for="cardInput" class="dash__label">Nuevo pedido</label>
+
+                <div class="dash__controls">
+                    <input type="text" id="cardInput" class="dash__input"
+                        placeholder="Escribe el contenido del nuevo pedido">
+                    <button id="addCardBtn" class="dash__button" type="button">
+                        Añadir pedido
+                    </button>
+                </div>
+
+                <p id="errorMessage" class="dash__error"></p>
+            </div>
+
+            <div class="dash__list-header">
+                <h2 class="dash__subtitle">Pedido creados</h2>
+                <span id="cardCounter" class="dash__counter">0 elementos</span>
+            </div>
+
+            <p id="emptyMessage" class="dash__empty">
+                No hay pedidos creados todavía
+            </p>
+
+            <div id="cardContainer" class="dash__grid"></div>
+        </section>
 
 
 

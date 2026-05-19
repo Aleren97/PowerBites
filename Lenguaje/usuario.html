@@ -1,28 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Mi CRM - Dashboard</title>
+    <!-- Cargamos Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="body">
+<body class="bg-gray-100 font-sans flex h-screen">
 
-    <header class="header">
-        <img src="" alt="Logo de la pagina" class="header__logo">
-
-        <div class="header__navs">
-            <a href="dashboard.html" class="link__nav">Home</a>
-            <a href="" class="link__nav"></a>
-            <a href="" class="link__nav"></a>
-            <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" class="usuario">Registrarse</a>
+    <!-- 1. BARRA LATERAL DE NAVEGACIÓN (Sidebar) -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between p-4">
+        <div>
+            <!-- Logo / Nombre del CRM -->
+            <div class="text-2xl font-bold tracking-wider mb-8 text-indigo-400 flex items-center gap-2">
+                <span>⚡</span> CustomCRM
+            </div>
+            
+            <!-- Enlaces de navegación -->
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded bg-indigo-600 text-white font-medium">
+                    📊 Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded text-gray-400 hover:bg-slate-800 hover:text-white transition">
+                    👥 Contactos
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded text-gray-400 hover:bg-slate-800 hover:text-white transition">
+                    🏢 Empresas
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded text-gray-400 hover:bg-slate-800 hover:text-white transition">
+                    💼 Negocios (Kanban)
+                </a>
+            </nav>
         </div>
-    </header>
+        
+        <!-- Usuario -->
+        <div class="border-t border-slate-800 pt-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center font-bold">
+                AV
+            </div>
+            <div>
+                <p class="text-sm font-medium">Alex Vendedor</p>
+                <p class="text-xs text-gray-500">Admin</p>
+            </div>
+        </div>
+    </aside>
 
-   
+    <!-- 2. CONTENIDO PRINCIPAL -->
+    <main class="flex-1 flex flex-col overflow-y-auto">
+        
+        <!-- Barra superior de búsqueda / acciones -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8">
+            <h1 class="text-xl font-bold text-gray-800">Panel de Control</h1>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition">
+                + Nuevo Negocio
+            </button>
+        </header>
 
+        <!-- Contenedor de las secciones -->
+        <div class="p-8 space-y-8">
+            
+            <!-- TARJETAS DE MÉTRICAS (KPIs) -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Métrica 1 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Valor del Pipeline</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">$24,500.00</p>
+                    <span class="text-xs text-green-600 font-semibold">↑ 12% este mes</span>
+                </div>
+                <!-- Métrica 2 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Negocios Ganados</p>
+                    <p class="text-3xl font-bold text-green-600 mt-2">14</p>
+                    <span class="text-xs text-gray-500">Meta mensual: 20</span>
+                </div>
+                <!-- Métrica 3 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Contactos Nuevos</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">48</p>
+                    <span class="text-xs text-indigo-600 font-semibold">Sincronizados vía web</span>
+                </div>
+            </section>
 
+            <!-- TABLA DE NEGOCIOS RECIENTES -->
+            <section class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                    <h2 class="font-bold text-gray-800">Negocios en Seguimiento Activo</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 text-xs uppercase text-gray-500 font-semibold border-b border-gray-200">
+                                <th class="p-4">Nombre del Negocio</th>
+                                <th class="p-4">Empresa</th>
+                                <th class="p-4">Monto</th>
+                                <th class="p-4">Etapa</th>
+                                <th class="p-4">Última Actividad</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
+                            <!-- Fila 1 -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="p-4 font-medium text-indigo-600">50 Licencias Premium</td>
+                                <td class="p-4 text-gray-500">Acme Corp</td>
+                                <td class="p-4 font-semibold">$5,000</td>
+                                <td class="p-4">
+                                    <span class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">Propuesta Presentada</span>
+                                </td>
+                                <td class="p-4 text-xs text-gray-400">Hace 2 horas (Llamada)</td>
+                            </tr>
+                            <!-- Fila 2 -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="p-4 font-medium text-indigo-600">Soporte Anual Servidores</td>
+                                <td class="p-4 text-gray-500">Stark Industries</td>
+                                <td class="p-4 font-semibold">$12,000</td>
+                                <td class="p-4">
+                                    <span class="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded-full">Negociación</span>
+                                </td>
+                                <td class="p-4 text-xs text-gray-400">Ayer (Correo enviado)</td>
+                            </tr>
+                            <!-- Fila 3 -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="p-4 font-medium text-indigo-600">Consultoría Cloud</td>
+                                <td class="p-4 text-gray-500">Wayne Enterprises</td>
+                                <td class="p-4 font-semibold">$7,500</td>
+                                <td class="p-4">
+                                    <span class="px-2 py-1 text-xs font-semibold bg-purple-100 text-purple-800 rounded-full">Cita Programada</span>
+                                </td>
+                                <td class="p-4 text-xs text-gray-400">Hace 3 días (Nota)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    <script src="script.js"></script>
+        </div>
+    </main>
+
 </body>
 </html>
