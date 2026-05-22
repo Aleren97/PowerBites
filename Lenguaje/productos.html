@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+
+    <aside class="navegador">
+        <div class="navegador">
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            <div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="productos.html" class="link__nav">
+                Productos
+                </a>
+                <a href="cliente.html" class="link__nav">
+                Clientes
+                </a>
+                <a href="ventas.html" class="link__nav">
+                Ventas 
+                </a>
+                <a href="usuario.html" class="link__nav">
+                Usuarios 
+                </a>
+            </nav>
+            </div>
+
+
+            
+            <div class="registrado">
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+        
+    </aside>
+
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <h1 class="page-header__title">Catálogo de Barritas</h1>
+            </div>
+            <button class="btn btn--primary" id="btn-add-product">
+                Añadir Barrita
+            </button>
+        </header>
+
+        <section class="catalog" id="catalog-container">
+        </section>
+    </main>
+
+    <div class="modal" id="product-modal">
+        <div class="modal__content">
+            <h2 class="modal__title" id="modal-title">Nueva Barrita Energética</h2>
+            
+            <form class="form-crm" id="product-form">
+                <input type="hidden" id="product-id">
+
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="prod-name">Nombre de la Barrita</label>
+                    <input class="form-crm__input" type="text" id="prod-name" required placeholder="Ej: Vegana de Chocolate 70%">
+                </div>
+
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="prod-desc">Descripción / Ingredientes</label>
+                    <input class="form-crm__input" type="text" id="prod-desc" required placeholder="Ej: Rica en fibra, con pepitas de chocolate negro">
+                </div>
+
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="prod-cate">Categoría</label>
+                    <select class="form-crm__select" id="prod-cate">
+                        <option value="Proteica">Proteica</option>
+                        <option value="Energy">Energy / Avena</option>
+                        <option value="Keto">Keto / Low Carb</option>
+                        <option value="Vegana">Vegana</option>
+                    </select>
+                </div>
+
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="prod-price">Precio (€)</label>
+                    <input class="form-crm__input" type="number" step="0.01" id="prod-price" required placeholder="0.00">
+                </div>
+
+                <div class="form-crm__actions">
+                    <button class="btn products-btn--secondary" type="button" id="btn-close-modal">Cancelar</button>
+                    <button class="btn btn--primary" type="submit">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="ventas.js"></script>
+
+    
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+    
+   <aside class="navegador">
+        <div class="navegador">
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            <div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="productos.html" class="link__nav">
+                Productos
+                </a>
+                <a href="cliente.html" class="link__nav">
+                Clientes
+                </a>
+                <a href="ventas.html" class="link__nav">
+                Ventas 
+                </a>
+                <a href="usuario.html" class="link__nav">
+                Usuarios 
+                </a>
+            </nav>
+            </div>
+
+
+            
+            <div class="registrado">
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+        
+    </aside>
+
+    
+    <section class="modulo-crm__client">
+
+
+
+    <section class="modulo-crm__seccion">
+            <h2 class="modulo-crm__subtitulo">Añadir Nuevo Cliente</h2>
+            <form id="clienteFormDirecto" class="form-crm">
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="client-name">Nombre Completo</label>
+                    <input class="form-crm__input" type="text" id="client-name" required placeholder="Nombre completo">
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="client-email">Correo Electrónico</label>
+                    <input class="form-crm__input" type="email" id="client-email" required placeholder="nombre@correo.com">
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="client-phone">Teléfono</label>
+                    <input class="form-crm__input" type="text" id="client-phone" required placeholder="555-1234">
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="client-direction">Dirección</label>
+                    <input class="form-crm__input" type="text" id="client-direction" required placeholder="Calle Gran Vía 12">
+                </div>
+                <div class="form-crm__actions">
+                    <button type="submit" class="client__btn--primary" id="btnGuardarClienteDirecto">Guardar Cliente en CRM</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="modulo-crm__seccion-consulta">
+            <h2 class="modulo-crm__subtitulo">Consultar Ficha de Clientes Activos</h2>
+            <div class="consulta-bar">
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="selectClienteConsulta">Selecciona un Cliente Guardado:</label>
+                    <select id="selectClienteConsulta" class="form-crm__input">
+                        </select>
+                </div>
+                <button type="button" id="btn--VerFicha" class="client__btn--primary">Ver Ficha Detallada</button>
+                <button type="button" id="btn--BorrarCliente" class="btn--danger">Borrar Cliente</button>
+            </div>
+
+            <div id="apartadoFichaCliente" class="ficha-cliente">
+                <h3 id="ficha-name">-</h3>
+                <table class="tabla-ficha">
+                    <thead>
+                        <tr>
+                            <th>Dato</th>
+                            <th>Valor Registrado en Sistema</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoFichaCliente">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <script src="ventas.js"></script>
+</body>
+</html>

@@ -1,3 +1,98 @@
+
+//Clases
+
+
+class clientes {
+    constructor(id, nombre, email, telefono, direccion){
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+}
+
+class usuarios {
+    constructor(id, nombre, email, rol, password_hash){
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.rol = rol;
+        this.password_hash = password_hash;
+    }
+}
+
+class ventas {
+    constructor(id, cliente_id, usuario_id, fecha, estado, total){
+        this.id = id;
+        this.cliente_id = cliente_id;
+        this.usuario_id = usuario_id;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.total = total;
+    }
+}
+
+class productos {
+    constructor(id, nombre, descripcion, precio, categoria){
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.categoria = categoria;
+    }
+}
+
+class detalles_venta {
+    constructor(id, venta_id, producto_id, cantidad, precioUnitario){
+        this.id = id;
+        this.venta_id = venta_id;
+        this.producto_id = producto_id;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+    }
+}
+
+const obtenerUsuariosDeSesion = () => {
+    const datos = sessionStorage.getItem('crm_usuarios');
+    return datos ? JSON.parse(datos) : [
+        new Usuario(1, "Diego Carnicero", "diego.carnicero@estudiante.xtart.com", "Director Comercial"),
+        new Usuario(2, "Beatriz Administradora", "beatriz@crm.com", "Admin")
+    ];
+};
+
+const guardarClientesEnSesion = (listaClientes) => {
+    sessionStorage.setItem('crm_clientes', JSON.stringify(listaClientes));
+};
+
+const obtenerClientesDeSesion = () => {
+    const datos = sessionStorage.getItem('crm_clientes');
+    return datos ? JSON.parse(datos) : [
+        new Cliente(1, "Diego Carnicero", "diego.carnicero@estudiante.xtart.com", "555-1234", "Calle Falsa 123"),
+        new Cliente(2, "Stark Ind.", "tony@stark.com", "555-9999", "Torre Stark")
+    ];
+};
+
+const obtenerProductosDeSesion = () => {
+    const datos = sessionStorage.getItem('crm_productos');
+    // CORREGIDO: Ahora usa 'new productos' en minúscula y plural, igual que tu clase
+    return datos ? JSON.parse(datos) : [
+        new productos(1, "Barritas de chocolate", "Barritas energéticas de chocolate", 50.00, "Dulce"),
+        new productos(2, "Barritas de fresa", "Barritas energéticas de fresa", 45.50, "Frutas"),
+        new productos(3, "Barritas sin gluten", "Barritas energéticas sin gluten", 80.00, "Especiales")
+    ];
+};
+
+
+const obtenerVentasDeSesion = () => {
+    const datos = sessionStorage.getItem('crm_ventas');
+    return datos ? JSON.parse(datos) : [
+        new Venta(1, 1, 1, "2026-05-19", "Comercial", 1245.50),
+        new Venta(2, 2, 1, "2026-05-18", "Pendiente", 180.00)
+    ];
+};
+
+
 // Registro
 
 const formulario = document.getElementById("formulario");
@@ -262,3 +357,4 @@ cardInput.addEventListener("keydown", function (event) {
 
 
 updateInterfaceState();
+
