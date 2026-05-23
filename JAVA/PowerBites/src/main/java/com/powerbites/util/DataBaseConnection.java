@@ -18,9 +18,9 @@ public class DataBaseConnection {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("¡Conexión a la base de datos powerbites establecida con éxito!");
+                System.out.println("\n¡Conexión a la base de datos powerbites establecida con éxito!\n");
             } catch (ClassNotFoundException e) {
-                System.err.println("Error: Driver de MySQL no encontrado.");
+                System.err.println("\nError: Driver de MySQL no encontrado.\n");
                 e.printStackTrace();
             }
         }
@@ -31,7 +31,7 @@ public class DataBaseConnection {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("\nConexión cerrada.");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
