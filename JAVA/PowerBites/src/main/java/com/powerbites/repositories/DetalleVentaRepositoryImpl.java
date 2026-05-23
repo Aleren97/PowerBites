@@ -10,19 +10,19 @@ import java.util.List;
 public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
 
     @Override
-    public void crear(DetalleVenta detalle) {
+    public void create(DetalleVenta detail) {
         String sql = "INSERT INTO DETALLE_VENTA (venta_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, detalle.getVentaId());
-            stmt.setInt(2, detalle.getProductoId());
-            stmt.setInt(3, detalle.getCantidad());
-            stmt.setDouble(4, detalle.getPrecioUnitario());
+            stmt.setInt(1, detail.getSaleId());
+            stmt.setInt(2, detail.getProductId());
+            stmt.setInt(3, detail.getAmount());
+            stmt.setDouble(4, detail.getCurrentPrice());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Linea de detalle añadida a la venta exitosamente.");
             }
         } catch (SQLException e) {
@@ -31,8 +31,8 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
     }
 
     @Override
-    public DetalleVenta leerPorId(int id) {
-        DetalleVenta detalle = null;
+    public DetalleVenta readById(int id) {
+        DetalleVenta detail = null;
         String sql = "SELECT * FROM DETALLE_VENTA WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -42,7 +42,7 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    detalle = new DetalleVenta(
+                    detail = new DetalleVenta(
                             rs.getInt("id"),
                             rs.getInt("venta_id"),
                             rs.getInt("producto_id"),
@@ -54,12 +54,12 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         } catch (SQLException e) {
             System.err.println("Error al buscar el detalle por ID: " + e.getMessage());
         }
-        return detalle;
+        return detail;
     }
 
     @Override
-    public List<DetalleVenta> leerTodos() {
-        List<DetalleVenta> detalles = new ArrayList<>();
+    public List<DetalleVenta> readAll() {
+        List<DetalleVenta> details = new ArrayList<>();
         String sql = "SELECT * FROM DETALLE_VENTA";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -74,26 +74,26 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
                         rs.getInt("cantidad"),
                         rs.getDouble("precio_unitario")
                 );
-                detalles.add(d);
+                details.add(d);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener los detalles de venta: " + e.getMessage());
         }
-        return detalles;
+        return details;
     }
 
     @Override
-    public void actualizar(DetalleVenta detalle) {
+    public void refresh(DetalleVenta detail) {
         String sql = "UPDATE DETALLE_VENTA SET venta_id = ?, producto_id = ?, cantidad = ?, precio_unitario = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, detalle.getVentaId());
-            stmt.setInt(2, detalle.getProductoId());
-            stmt.setInt(3, detalle.getCantidad());
-            stmt.setDouble(4, detalle.getPrecioUnitario());
-            stmt.setInt(5, detalle.getId());
+            stmt.setInt(1, detail.getSaleId());
+            stmt.setInt(2, detail.getProductId());
+            stmt.setInt(3, detail.getAmount());
+            stmt.setDouble(4, detail.getCurrentPrice());
+            stmt.setInt(5, detail.getId());
 
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {
@@ -105,7 +105,7 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void delete(int id) {
         String sql = "DELETE FROM DETALLE_VENTA WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -113,8 +113,8 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
 
             stmt.setInt(1, id);
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Detalle de venta eliminado.");
             }
         } catch (SQLException e) {
