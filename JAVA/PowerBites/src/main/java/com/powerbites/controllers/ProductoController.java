@@ -7,18 +7,18 @@ import java.util.Scanner;
 
 public class ProductoController {
 
-    private final ProductoService productoService;
+    private final ProductoService productService;
     private final Scanner scanner;
 
     public ProductoController() {
-        this.productoService = new ProductoService();
+        this.productService = new ProductoService();
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenuProductos() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("=== CATALOGO DE PRODUCTOS ===");
+    public void showMenuProducts() {
+        int option = -1;
+        while (option != 0) {
+            System.out.println("\n CATALOGO DE PRODUCTOS \n");
             System.out.println("1. Registrar nuevo producto");
             System.out.println("2. Buscar producto por ID");
             System.out.println("3. Listar todos los productos");
@@ -28,120 +28,129 @@ public class ProductoController {
             System.out.print("Seleccione una opcion: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            switch (opcion) {
-                case 1: registrar(); break;
-                case 2: buscar(); break;
-                case 3: listar(); break;
-                case 4: modificar(); break;
-                case 5: eliminar(); break;
-                case 0: System.out.println("Saliendo del catalogo de productos..."); break;
-                default: System.out.println("Opcion no valida.");
+            switch (option) {
+                case 1 -> register();
+                case 2 -> search();
+                case 3 -> list();
+                case 4 -> modify();
+                case 5 -> delete();
+                case 0 -> System.out.println("\nSaliendo del catalogo de productos...");
+                default -> System.out.println("\nOpcion no valida.");
             }
         }
     }
 
-    private void registrar() {
-        System.out.println("--- REGISTRO DE PRODUCTO ---");
-        System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
+    private void register() {
+        System.out.println("\n REGISTRO DE PRODUCTO \n");
+        
+        System.out.print("\nNombre: ");
+        String name = scanner.nextLine();
+        
         System.out.print("Descripcion: ");
-        String descripcion = scanner.nextLine();
+        String description = scanner.nextLine();
 
-        double precio = 0.0;
-        boolean precioValido = false;
-        while (!precioValido) {
+        double price = 0.0;
+        boolean Validprice = false;
+        while (!Validprice) {
             System.out.print("Precio: ");
+            
             try {
-                precio = Double.parseDouble(scanner.nextLine());
-                precioValido = true;
+                price = Double.parseDouble(scanner.nextLine());
+                Validprice = true;
             } catch (NumberFormatException e) {
-                System.out.println("Error: Introduzca un precio valido (ej: 2.50).");
+                System.out.println("\nError: Introduzca un precio valido (ej: 2.50).");
             }
         }
 
-        System.out.print("Categoria (Ej: Proteina, Vegana...): ");
-        String categoria = scanner.nextLine();
+        System.out.print("\nCategoria (Ej: Proteina, Vegana...): ");
+        String category = scanner.nextLine();
 
-        Producto nuevoProducto = new Producto(0, nombre, descripcion, precio, categoria);
-        productoService.registrarProducto(nuevoProducto);
+        Producto newProduct = new Producto(0, name, description, price, category);
+        productService.registerProduct(newProduct);
     }
 
-    private void buscar() {
-        System.out.print("Introduzca el ID del producto a buscar: ");
+    private void search() {
+        System.out.print("\nIntroduzca el ID del producto a buscar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Producto producto = productoService.buscarPorId(id);
-            if (producto != null) {
-                producto.mostrarDetalles();
+            Producto product = productService.getById(id);
+            
+            if (product != null) {
+                product.showDetails();
             } else {
-                System.out.println("No se encontro ningun producto con ese ID.");
+                System.out.println("\nNo se encontro ningun producto con ese ID.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void listar() {
-        System.out.println("--- LISTA DE PRODUCTOS ---");
-        List<Producto> productos = productoService.obtenerTodos();
-        if (productos.isEmpty()) {
-            System.out.println("No hay productos registrados en el catalogo.");
+    private void list() {
+        System.out.println("\n LISTA DE PRODUCTOS \n");
+        List<Producto> products = productService.getAll();
+        if (products.isEmpty()) {
+            System.out.println("\nNo hay productos registrados en el catalogo.");
         } else {
-            for (Producto p : productos) {
-                p.mostrarDetalles();
+            for (Producto p : products) {
+                p.showDetails();
             }
         }
     }
 
-    private void modificar() {
-        System.out.print("Introduzca el ID del producto a modificar: ");
+    private void modify() {
+        System.out.print("\nIntroduzca el ID del producto a modificar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Producto productoExistente = productoService.buscarPorId(id);
+            Producto currentProduct = productService.getById(id);
 
-            if (productoExistente != null) {
-                System.out.println("Deje el campo en blanco y pulse Enter si no desea modificarlo.");
+            if (currentProduct != null) {
+                System.out.println("\nDeje el campo en blanco y pulse Enter si no desea modificarlo.");
 
-                System.out.print("Nuevo Nombre (" + productoExistente.getNombre() + "): ");
-                String nombre = scanner.nextLine();
-                if (!nombre.isEmpty()) productoExistente.setNombre(nombre);
+                System.out.print("\nNuevo Nombre (" + currentProduct.getName() + "): ");
+                String name = scanner.nextLine();
+                
+                if (!name.isEmpty()) currentProduct.setName(name);
 
-                System.out.print("Nueva Descripcion (" + productoExistente.getDescripcion() + "): ");
-                String descripcion = scanner.nextLine();
-                if (!descripcion.isEmpty()) productoExistente.setDescripcion(descripcion);
+                System.out.print("Nueva Descripcion (" + currentProduct.getDescription() + "): ");
+                String description = scanner.nextLine();
+                
+                if (!description.isEmpty()) currentProduct.setDescription(description);
 
-                System.out.print("Nuevo Precio (" + productoExistente.getPrecio() + ") [Deje 0 para no modificar]: ");
+                System.out.print("Nuevo Precio (" + currentProduct.getPrice() + ") [Deje 0 para no modificar]: ");
+                
                 try {
-                    double precio = Double.parseDouble(scanner.nextLine());
-                    if (precio != 0) productoExistente.setPrecio(precio);
+                    double price = Double.parseDouble(scanner.nextLine());
+                    if (price != 0) currentProduct.setPrice(price);
                 } catch (NumberFormatException e) {
-                    System.out.println("Precio no modificado (entrada no valida).");
+                    System.out.println("\nPrecio no modificado (entrada no valida).");
                 }
 
-                System.out.print("Nueva Categoria (" + productoExistente.getCategoria() + "): ");
-                String categoria = scanner.nextLine();
-                if (!categoria.isEmpty()) productoExistente.setCategoria(categoria);
+                System.out.print("\nNueva Categoria (" + currentProduct.getCategory() + "): ");
+                String category = scanner.nextLine();
+                if (!category.isEmpty()) currentProduct.setCategory(category);
 
-                productoService.modificarProducto(productoExistente);
+                productService.modifyProduct(currentProduct);
             } else {
-                System.out.println("No se encontro el producto.");
+                System.out.println("\nNo se encontro el producto.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void eliminar() {
+    private void delete() {
         System.out.print("Introduzca el ID del producto a eliminar: ");
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            productoService.eliminarProducto(id);
+            productService.deleteProduct(id);
         } catch (NumberFormatException e) {
             System.out.println("ID invalido.");
         }
