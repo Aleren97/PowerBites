@@ -2,42 +2,40 @@ package com.powerbites.entities;
 
 public class Producto {
     private int id;
-    private String nombre;
-    private String descripcion;
-    private double precio;
-    private String categoria;
+    private String name;
+    private String description;
+    private double price;
+    private String category;
 
-    public Producto(int id, String nombre, String descripcion, double precio, String categoria) {
+    public Producto(int id, String name, String description, double price, String category) {
         this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.categoria = categoria;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
     }
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void mostrarDetalles() {
-        System.out.println("=== PRODUCTO ===");
+    public void showDetails() {
+        System.out.println("\n PRODUCTO \n");
         System.out.println("ID: " + id);
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Descripcion: " + descripcion);
-        System.out.println("Precio: " + precio + " euros");
-        System.out.println("Categoria: " + categoria);
-        System.out.println("================");
+        System.out.println("Nombre: " + name);
+        System.out.println("Descripcion: " + description);
+        System.out.println("Precio: " + price + " euros.");
+        System.out.println("Categoria: " + category + "\n");
     }
 }
