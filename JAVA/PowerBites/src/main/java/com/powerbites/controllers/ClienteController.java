@@ -7,141 +7,155 @@ import java.util.Scanner;
 
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    private final ClienteService clientService;
     private final Scanner scanner;
 
     public ClienteController() {
-        this.clienteService = new ClienteService();
+        this.clientService = new ClienteService();
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenuClientes() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("=== GESTION DE CLIENTES ===");
+    public void showMenuClients() {
+        int option = -1;
+        
+        while (option != 0) {
+            System.out.println("\n GESTIÓN DE CLIENTES \n");
             System.out.println("1. Registrar nuevo cliente");
             System.out.println("2. Buscar cliente por ID");
             System.out.println("3. Listar todos los clientes");
             System.out.println("4. Modificar cliente");
             System.out.println("5. Eliminar cliente");
             System.out.println("6. Exportar clientes a CSV");
-            System.out.println("0. Volver al menu principal");
-            System.out.print("Seleccione una opcion: ");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            switch (opcion) {
-                case 1 -> registrar();
-                case 2 -> buscar();
-                case 3 -> listar();
-                case 4 -> modificar();
-                case 5 -> eliminar();
-                case 6 -> exportar();
-                case 0 -> System.out.println("Saliendo del menu de clientes...");
-                default -> System.out.println("Opcion no valida.");
+            switch (option) {
+                case 1 -> register();
+                case 2 -> search();
+                case 3 -> list();
+                case 4 -> modify();
+                case 5 -> delete();
+                case 6 -> export();
+                case 0 -> System.out.println("\nSaliendo del menu de clientes...");
+                default -> System.out.println("\nOpcion no valida.");
             }
         }
     }
 
-    private void registrar() {
-        System.out.println("--- REGISTRO DE CLIENTE ---");
+    private void register() {
+        System.out.println("\n REGISTRO DE CLIENTE \n");
+        
         System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
+        String name = scanner.nextLine();
+        
         System.out.print("Email: ");
         String email = scanner.nextLine();
-        System.out.print("Telefono: ");
-        String telefono = scanner.nextLine();
-        System.out.print("Direccion: ");
-        String direccion = scanner.nextLine();
+        
+        System.out.print("Teléfono: ");
+        String phone = scanner.nextLine();
+        
+        System.out.print("Dirección: ");
+        String adress = scanner.nextLine();
 
-        Cliente nuevoCliente = new Cliente(0, nombre, email, telefono, direccion);
-        clienteService.registrarCliente(nuevoCliente);
+        Cliente newClient = new Cliente(0, name, email, phone, adress);
+        clientService.registerClient(newClient);
     }
 
-    private void buscar() {
-        System.out.print("Introduzca el ID del cliente a buscar: ");
+    private void search() {
+        System.out.print("\nIntroduzca el ID del cliente a buscar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Cliente cliente = clienteService.buscarPorId(id);
-            if (cliente != null) {
-                cliente.mostrarDetalles();
+            Cliente client = clientService.getById(id);
+            
+            if (client != null) {
+                client.showDetails();
             } else {
-                System.out.println("No se encontro ningun cliente con ese ID.");
+                System.out.println("\nNo se encontro ningun cliente con ese ID.");
             }
+        
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void listar() {
-        System.out.println("--- LISTA DE CLIENTES ---");
-        List<Cliente> clientes = clienteService.obtenerTodos();
-        if (clientes.isEmpty()) {
-            System.out.println("No hay clientes registrados en la base de datos.");
+    private void list() {
+        System.out.println("\n LISTA DE CLIENTES \n");
+        
+        List<Cliente> clients = clientService.getAll();
+        
+        if (clients.isEmpty()) {
+            System.out.println("\nNo hay clientes registrados en la base de datos.");
         } else {
-            for (Cliente c : clientes) {
-                c.mostrarDetalles();
+            for (Cliente c : clients) {
+                c.showDetails();
             }
         }
     }
 
-    private void modificar() {
-        System.out.print("Introduzca el ID del cliente a modificar: ");
+    private void modify() {
+        System.out.print("\nIntroduzca el ID del cliente a modificar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Cliente clienteExistente = clienteService.buscarPorId(id);
+            Cliente currentClient = clientService.getById(id);
 
-            if (clienteExistente != null) {
-                System.out.println("Deje el campo en blanco y pulse Enter si no desea modificarlo.");
+            if (currentClient != null) {
+                System.out.println("\nDeje el campo en blanco y pulse Enter si no desea modificarlo.");
 
-                System.out.print("Nuevo Nombre (" + clienteExistente.getNombre() + "): ");
-                String nombre = scanner.nextLine();
-                if (!nombre.isEmpty()) clienteExistente.setNombre(nombre);
+                System.out.print("\nNuevo Nombre (" + currentClient.getName() + "): ");
+                String name = scanner.nextLine();
+                if (!name.isEmpty()) currentClient.setName(name);
 
-                System.out.print("Nuevo Email (" + clienteExistente.getEmail() + "): ");
+                System.out.print("Nuevo Email (" + currentClient.getEmail() + "): ");
                 String email = scanner.nextLine();
-                if (!email.isEmpty()) clienteExistente.setEmail(email);
+                if (!email.isEmpty()) currentClient.setEmail(email);
 
-                System.out.print("Nuevo Telefono (" + clienteExistente.getTelefono() + "): ");
-                String telefono = scanner.nextLine();
-                if (!telefono.isEmpty()) clienteExistente.setTelefono(telefono);
+                System.out.print("Nuevo Telefono (" + currentClient.getPhone() + "): ");
+                String phone = scanner.nextLine();
+                if (!phone.isEmpty()) currentClient.setPhone(phone);
 
-                System.out.print("Nueva Direccion (" + clienteExistente.getDireccion() + "): ");
-                String direccion = scanner.nextLine();
-                if (!direccion.isEmpty()) clienteExistente.setDireccion(direccion);
+                System.out.print("Nueva Direccion (" + currentClient.getAdress() + "): ");
+                String adress = scanner.nextLine();
+                if (!adress.isEmpty()) currentClient.setAdress(adress);
 
-                clienteService.modificarCliente(clienteExistente);
+                clientService.modifyClient(currentClient);
+            
             } else {
-                System.out.println("No se encontro el cliente.");
+                System.out.println("\nNo se encontro el cliente.");
             }
+        
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void eliminar() {
-        System.out.print("Introduzca el ID del cliente a eliminar: ");
+    private void delete() {
+        System.out.print("\nIntroduzca el ID del cliente a eliminar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            clienteService.darDeBajaCliente(id);
+            clientService.deleteClient(id);
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void exportar() {
-        System.out.println("--- EXPORTANDO DATOS ---");
-        List<Cliente> clientes = clienteService.obtenerTodos();
+    private void export() {
+        System.out.println("\n EXPORTANDO DATOS \n");
+        List<Cliente> clients = clientService.getAll();
 
-        if (clientes.isEmpty()) {
-            System.out.println("No hay clientes registrados en la base de datos para exportar.");
+        if (clients.isEmpty()) {
+            System.out.println("\nNo hay clientes registrados en la base de datos para exportar.");
         } else {
-            com.powerbites.util.GestorExportacion.exportarClientesCSV(clientes);
+            com.powerbites.util.GestorExportacion.exportClientsCSV(clients);
         }
     }
 }
