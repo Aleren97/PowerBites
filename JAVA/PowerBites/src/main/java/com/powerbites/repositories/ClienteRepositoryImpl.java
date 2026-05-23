@@ -10,17 +10,17 @@ import java.util.List;
 public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
-    public void crear(Cliente cliente) {
+    public void create(Cliente client) {
 
         String sql = "INSERT INTO CLIENTES (nombre, email, telefono, direccion) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, cliente.getNombre());
-            stmt.setString(2, cliente.getEmail());
-            stmt.setString(3, cliente.getTelefono());
-            stmt.setString(4, cliente.getDireccion());
+            stmt.setString(1, client.getName());
+            stmt.setString(2, client.getEmail());
+            stmt.setString(3, client.getPhone());
+            stmt.setString(4, client.getAdress());
 
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {
@@ -32,8 +32,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public List<Cliente> leerTodos() {
-        List<Cliente> clientes = new ArrayList<>();
+    public List<Cliente> readAll() {
+        List<Cliente> clients = new ArrayList<>();
         String sql = "SELECT * FROM CLIENTES";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -48,17 +48,17 @@ public class ClienteRepositoryImpl implements ClienteRepository {
                         rs.getString("telefono"),
                         rs.getString("direccion")
                 );
-                clientes.add(c);
+                clients.add(c);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener los clientes: " + e.getMessage());
         }
-        return clientes;
+        return clients;
     }
 
     @Override
-    public Cliente leerPorId(int id) {
-        Cliente cliente = null;
+    public Cliente readById(int id) {
+        Cliente client = null;
         String sql = "SELECT * FROM CLIENTES WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -68,7 +68,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    cliente = new Cliente(
+                    client = new Cliente(
                             rs.getInt("id"),
                             rs.getString("nombre"),
                             rs.getString("email"),
@@ -80,24 +80,24 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         } catch (SQLException e) {
             System.err.println("Error al buscar el cliente por ID: " + e.getMessage());
         }
-        return cliente;
+        return client;
     }
 
     @Override
-    public void actualizar(Cliente cliente) {
+    public void refresh(Cliente client) {
         String sql = "UPDATE CLIENTES SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, cliente.getNombre());
-            stmt.setString(2, cliente.getEmail());
-            stmt.setString(3, cliente.getTelefono());
-            stmt.setString(4, cliente.getDireccion());
-            stmt.setInt(5, cliente.getId());
+            stmt.setString(1, client.getName());
+            stmt.setString(2, client.getEmail());
+            stmt.setString(3, client.getPhone());
+            stmt.setString(4, client.getAdress());
+            stmt.setInt(5, client.getId());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Los datos del cliente se han actualizado correctamente.");
             } else {
                 System.out.println("No se encontró ningún cliente con ese ID para actualizar.");
@@ -108,7 +108,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void delete(int id) {
         String sql = "DELETE FROM CLIENTES WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -116,8 +116,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
             stmt.setInt(1, id);
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Cliente eliminado de la base de datos.");
             } else {
                 System.out.println("No se encontró ningún cliente con ese ID para eliminar.");
