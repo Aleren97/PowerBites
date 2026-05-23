@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface UsuarioRepository {
 
-    void crear(Usuario usuario);
+    void create(Usuario user);
 
-    Usuario leerPorId(int id);
+    Usuario readById(int id);
 
-    List<Usuario> leerTodos();
+    List<Usuario> readAll();
 
-    void actualizar(Usuario usuario);
+    void refresh(Usuario user);
 
-    void eliminar(int id);
+    void delete(int id);
 }
