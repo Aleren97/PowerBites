@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface ProductoRepository {
 
-    void crear(Producto producto);
+    void create(Producto producto);
 
-    Producto leerPorId(int id);
+    Producto readById(int id);
 
-    List<Producto> leerTodos();
+    List<Producto> readAll();
 
-    void actualizar(Producto producto);
+    void refresh(Producto product);
 
-    void eliminar(int id);
+    void delete(int id);
 }
