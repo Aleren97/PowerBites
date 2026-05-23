@@ -7,18 +7,18 @@ import java.util.Scanner;
 
 public class DetalleVentaController {
 
-    private final DetalleVentaService detalleService;
+    private final DetalleVentaService detailService;
     private final Scanner scanner;
 
     public DetalleVentaController() {
-        this.detalleService = new DetalleVentaService();
+        this.detailService = new DetalleVentaService();
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenuDetalles() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("=== GESTION DE DETALLES DE VENTA ===");
+    public void showMenuDetails() {
+        int option = -1;
+        while (option != 0) {
+            System.out.println("\n GESTION DE DETALLES DE VENTA \n");
             System.out.println("1. Registrar nueva linea de detalle");
             System.out.println("2. Buscar detalle por ID");
             System.out.println("3. Listar todos los detalles");
@@ -28,113 +28,127 @@ public class DetalleVentaController {
             System.out.print("Seleccione una opcion: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            switch (opcion) {
-                case 1: registrar(); break;
-                case 2: buscar(); break;
-                case 3: listar(); break;
-                case 4: modificar(); break;
-                case 5: eliminar(); break;
-                case 0: System.out.println("Saliendo del modulo de detalles..."); break;
-                default: System.out.println("Opcion no valida.");
+            switch (option) {
+                case 1 -> register();
+                case 2 -> search();
+                case 3 -> list();
+                case 4 -> modify();
+                case 5 -> delete();
+                case 0 -> System.out.println("\nSaliendo del modulo de detalles...");
+                default -> System.out.println("\nOpcion no valida.");
             }
         }
     }
 
-    private void registrar() {
-        System.out.println("--- REGISTRO DE LINEA DE DETALLE ---");
+    private void register() {
+        System.out.println("\n REGISTRO DE LINEA DE DETALLE \n");
+        
         try {
             System.out.print("ID de la Venta asociada: ");
-            int ventaId = Integer.parseInt(scanner.nextLine());
+            int saleId = Integer.parseInt(scanner.nextLine());
 
             System.out.print("ID del Producto: ");
-            int productoId = Integer.parseInt(scanner.nextLine());
+            int productId = Integer.parseInt(scanner.nextLine());
 
             System.out.print("Cantidad vendida: ");
-            int cantidad = Integer.parseInt(scanner.nextLine());
+            int amount = Integer.parseInt(scanner.nextLine());
 
             System.out.print("Precio Unitario: ");
-            double precio = Double.parseDouble(scanner.nextLine());
+            double price = Double.parseDouble(scanner.nextLine());
 
-            DetalleVenta nuevoDetalle = new DetalleVenta(0, ventaId, productoId, cantidad, precio);
-            detalleService.registrarDetalle(nuevoDetalle);
+            DetalleVenta newDetail = new DetalleVenta(0, saleId, productId, amount, price);
+            detailService.registerDetail(newDetail);
 
         } catch (NumberFormatException e) {
             System.out.println("Error en la entrada de datos. Asegurese de introducir solo numeros.");
         }
     }
 
-    private void buscar() {
-        System.out.print("Introduzca el ID del detalle a buscar: ");
+    private void search() {
+        System.out.print("\nIntroduzca el ID del detalle a buscar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            DetalleVenta detalle = detalleService.buscarPorId(id);
-            if (detalle != null) {
-                detalle.mostrarDetalles();
+            DetalleVenta detail = detailService.getById(id);
+            
+            if (detail != null) {
+                detail.showDetails();
             } else {
-                System.out.println("No se encontro ningun detalle con ese ID.");
+                System.out.println("\nNo se encontro ningun detalle con ese ID.");
             }
+        
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void listar() {
-        System.out.println("--- HISTORIAL DE DETALLES ---");
-        List<DetalleVenta> detalles = detalleService.obtenerTodos();
-        if (detalles.isEmpty()) {
-            System.out.println("No hay lineas de detalle registradas.");
+    private void list() {
+        System.out.println("\n HISTORIAL DE DETALLES \n");
+        List<DetalleVenta> details = detailService.getAll();
+        
+        if (details.isEmpty()) {
+            System.out.println("\nNo hay lineas de detalle registradas.");
         } else {
-            for (DetalleVenta d : detalles) {
-                d.mostrarDetalles();
+            for (DetalleVenta d : details) {
+                d.showDetails();
             }
         }
     }
 
-    private void modificar() {
-        System.out.print("Introduzca el ID del detalle a modificar: ");
+    private void modify() {
+        System.out.print("\nIntroduzca el ID del detalle a modificar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            DetalleVenta detalleExistente = detalleService.buscarPorId(id);
+            DetalleVenta currentDetail = detailService.getById(id);
 
-            if (detalleExistente != null) {
-                System.out.print("Nueva Cantidad (" + detalleExistente.getCantidad() + ") [Deje 0 para no modificar]: ");
+            if (currentDetail != null) {
+                System.out.print("\nNueva Cantidad (" + currentDetail.getAmount() + ") [Deje 0 para no modificar]: ");
+                
                 try {
-                    int cantidad = Integer.parseInt(scanner.nextLine());
-                    if (cantidad > 0) detalleExistente.setCantidad(cantidad);
+                    int amount = Integer.parseInt(scanner.nextLine());
+                    
+                    if (amount > 0) currentDetail.setAmount(amount);
+                
                 } catch (NumberFormatException e) {
                     System.out.println("Cantidad no modificada.");
                 }
 
-                System.out.print("Nuevo Precio Unitario (" + detalleExistente.getPrecioUnitario() + ") [Deje 0 para no modificar]: ");
+                System.out.print("\nNuevo Precio Unitario (" + currentDetail.getCurrentPrice() + ") [Deje 0 para no modificar]: ");
+                
                 try {
-                    double precio = Double.parseDouble(scanner.nextLine());
-                    if (precio > 0) detalleExistente.setPrecioUnitario(precio);
+                    double price = Double.parseDouble(scanner.nextLine());
+                    
+                    if (price > 0) currentDetail.setCurrentPrice(price);
+                
                 } catch (NumberFormatException e) {
-                    System.out.println("Precio no modificado.");
+                    System.out.println("\nPrecio no modificado.");
                 }
 
-                detalleService.modificarDetalle(detalleExistente);
+                detailService.modifyDetail(currentDetail);
             } else {
-                System.out.println("No se encontro el detalle.");
+                System.out.println("\nNo se encontro el detalle.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void eliminar() {
-        System.out.print("Introduzca el ID del detalle a eliminar: ");
+    private void delete() {
+        System.out.print("\nIntroduzca el ID del detalle a eliminar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            detalleService.eliminarDetalle(id);
+            detailService.deleteDetail(id);
+        
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 }
