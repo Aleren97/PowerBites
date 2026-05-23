@@ -8,18 +8,18 @@ import java.util.Scanner;
 
 public class VentaController {
 
-    private final VentaService ventaService;
+    private final VentaService saleService;
     private final Scanner scanner;
 
     public VentaController() {
-        this.ventaService = new VentaService();
+        this.saleService = new VentaService();
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenuVentas() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("=== REGISTRO DE VENTAS ===");
+    public void showMenuSales() {
+        int option = -1;
+        while (option != 0) {
+            System.out.println("\n REGISTRO DE VENTAS \n");
             System.out.println("1. Registrar nueva venta");
             System.out.println("2. Buscar venta por ID");
             System.out.println("3. Listar todas las ventas");
@@ -29,114 +29,121 @@ public class VentaController {
             System.out.print("Seleccione una opcion: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            switch (opcion) {
-                case 1 -> registrar();
-                case 2 -> buscar();
-                case 3 -> listar();
-                case 4 -> modificar();
-                case 5 -> eliminar();
-                case 0 -> System.out.println("Saliendo del modulo de ventas...");
-                default -> System.out.println("Opcion no valida.");
+            switch (option) {
+                case 1 -> register();
+                case 2 -> search();
+                case 3 -> list();
+                case 4 -> modify();
+                case 5 -> delete();
+                case 0 -> System.out.println("\nSaliendo del modulo de ventas...");
+                default -> System.out.println("\nOpcion no valida.");
             }
         }
     }
 
-    private void registrar() {
-        System.out.println("--- REGISTRO DE VENTA ---");
+    private void register() {
+        System.out.println("\n REGISTRO DE VENTA \n");
         try {
             System.out.print("ID del Cliente: ");
-            int clienteId = Integer.parseInt(scanner.nextLine());
+            int clientId = Integer.parseInt(scanner.nextLine());
 
             System.out.print("ID del Comercial (Usuario): ");
-            int usuarioId = Integer.parseInt(scanner.nextLine());
+            int userId = Integer.parseInt(scanner.nextLine());
 
             System.out.print("Fecha (AAAA-MM-DD): ");
-            Date fecha = Date.valueOf(scanner.nextLine());
+            Date date = Date.valueOf(scanner.nextLine());
 
             System.out.print("Estado (Ej: Completado, Pendiente, Cancelado): ");
-            String estado = scanner.nextLine();
+            String status = scanner.nextLine();
 
             System.out.print("Total de la venta: ");
             double total = Double.parseDouble(scanner.nextLine());
 
-            Venta nuevaVenta = new Venta(0, clienteId, usuarioId, fecha, estado, total);
-            ventaService.registrarVenta(nuevaVenta);
+            Venta newSale = new Venta(0, clientId, userId, date, status, total);
+            saleService.registerSale(newSale);
 
         } catch (IllegalArgumentException e) {
-            System.out.println("Error en la entrada de datos. Compruebe los numeros y el formato de la fecha.");
+            System.out.println("\nError en la entrada de datos. Compruebe los numeros y el formato de la fecha.");
         }
     }
 
-    private void buscar() {
-        System.out.print("Introduzca el ID de la venta a buscar: ");
+    private void search() {
+        System.out.print("\nIntroduzca el ID de la venta a buscar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Venta venta = ventaService.buscarPorId(id);
-            if (venta != null) {
-                venta.mostrarDetalles();
+            Venta sale = saleService.getById(id);
+            
+            if (sale != null) {
+                sale.showDetails();
             } else {
-                System.out.println("No se encontro ninguna venta con ese ID.");
+                System.out.println("\nNo se encontro ninguna venta con ese ID.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void listar() {
-        System.out.println("--- HISTORIAL DE VENTAS ---");
-        List<Venta> ventas = ventaService.obtenerTodas();
-        if (ventas.isEmpty()) {
-            System.out.println("No hay ventas registradas en el sistema.");
+    private void list() {
+        System.out.println("\n HISTORIAL DE VENTAS \n");
+        List<Venta> sales = saleService.getAll();
+        
+        if (sales.isEmpty()) {
+            System.out.println("\nNo hay ventas registradas en el sistema.");
         } else {
-            for (Venta v : ventas) {
-                v.mostrarDetalles();
+            for (Venta v : sales) {
+                v.showDetails();
             }
         }
     }
 
-    private void modificar() {
-        System.out.print("Introduzca el ID de la venta a modificar: ");
+    private void modify() {
+        System.out.print("\nIntroduzca el ID de la venta a modificar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Venta ventaExistente = ventaService.buscarPorId(id);
+            Venta currentSale = saleService.getById(id);
 
-            if (ventaExistente != null) {
-                System.out.println("ATENCION: Para mantener la integridad, solo se permite modificar el estado y el total.");
+            if (currentSale != null) {
+                System.out.println("\nATENCION: Para mantener la integridad, solo se permite modificar el estado y el total.");
 
-                System.out.print("Nuevo Estado (" + ventaExistente.getEstado() + "): ");
-                String estado = scanner.nextLine();
-                if (!estado.isEmpty()) ventaExistente.setEstado(estado);
+                System.out.print("\nNuevo Estado (" + currentSale.getStatus() + "): ");
+                String status = scanner.nextLine();
+                
+                if (!status.isEmpty()) currentSale.setStatus(status);
 
-                System.out.print("Nuevo Total (" + ventaExistente.getTotal() + ") [Deje 0 para no modificar]: ");
+                System.out.print("Nuevo Total (" + currentSale.getTotal() + ") [Deje 0 para no modificar]: ");
+                
                 try {
                     double total = Double.parseDouble(scanner.nextLine());
-                    if (total != 0) ventaExistente.setTotal(total);
+                    if (total != 0) currentSale.setTotal(total);
                 } catch (NumberFormatException e) {
-                    System.out.println("Total no modificado (entrada no valida).");
+                    System.out.println("\nTotal no modificado (entrada no valida).");
                 }
 
-                ventaService.modificarVenta(ventaExistente);
+                saleService.modifySale(currentSale);
             } else {
-                System.out.println("No se encontro la venta.");
+                System.out.println("\nNo se encontro la venta.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void eliminar() {
-        System.out.print("Introduzca el ID de la venta a eliminar: ");
+    private void delete() {
+        System.out.print("\nIntroduzca el ID de la venta a eliminar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            ventaService.eliminarVenta(id);
+            saleService.deleteSale(id);
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 }
