@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+
+     <aside class="navegador">
+        <div class="navegador">
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            <div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="productos.html" class="link__nav">
+                Productos
+                </a>
+                <a href="cliente.html" class="link__nav">
+                Clientes
+                </a>
+                <a href="ventas.html" class="link__nav">
+                Ventas 
+                </a>
+                <a href="usuario.html" class="link__nav">
+                Usuarios 
+                </a>
+            </nav>
+            </div>
+
+
+            
+            <div class="registrado">
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+        
+    </aside>
+
+    <div class="dash">
+    <section class="dash__section">
+         <div class="CRM">
+        <h1 class="title__CRM">PowerBites</h1>
+    </div>
+        <div class="dash__valores">
+                <div class="dash__beneficios">
+                    <h3 class="dash__title">Valor de las PowerBites</h3>
+                    <h2 class="dash__ingreso">$24,500.00</h2>
+                    <span class="dash__superado">↑ 12% este mes</span>
+                </div>
+                <div class="dash__negocios">
+                    <h3 class="dash__title">Negocios Ganados</h3>
+                    <h2 class="dash__cantidad">14</h2>
+                    <span class="dash__meta">Meta mensual: 20</span>
+                </div>
+                <div class="dash__contratos">
+                    <h3 class="dash__title">Contactos Nuevos</h3>
+                    <h2 class="dash__cantidad">48</h2>
+                    <span class="dash__sincronizados">Sincronizados vía web</span>
+                </div>
+        </div>
+    </section>
+
+    <section class="dash__panel">
+            <div class="dash__form">
+                <label for="cardInput" class="dash__label">Nuevo pedido</label>
+
+                <div class="dash__controls">
+                    <input type="text" id="cardInput" class="dash__input"
+                        placeholder="Escribe el contenido del nuevo pedido">
+                    <button id="addCardBtn" class="dash__button" type="button">
+                        Añadir pedido
+                    </button>
+                </div>
+
+                <p id="errorMessage" class="dash__error"></p>
+            </div>
+
+            <div class="dash__list-header">
+                <h2 class="dash__subtitle">Pedido creados</h2>
+                <span id="cardCounter" class="dash__counter">0 elementos</span>
+            </div>
+
+            <p id="emptyMessage" class="dash__empty">
+                No hay pedidos creados todavía
+            </p>
+
+            <div id="cardContainer" class="dash__ajuste"></div>
+
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
