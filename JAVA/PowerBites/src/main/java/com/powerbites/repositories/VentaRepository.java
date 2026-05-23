@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface VentaRepository {
 
-    void crear(Venta venta);
+    void create(Venta sale);
 
-    Venta leerPorId(int id);
+    Venta readById(int id);
 
-    List<Venta> leerTodos();
+    List<Venta> readAll();
 
-    void actualizar(Venta venta);
+    void refresh(Venta sale);
 
-    void eliminar(int id);
+    void delete(int id);
 }
