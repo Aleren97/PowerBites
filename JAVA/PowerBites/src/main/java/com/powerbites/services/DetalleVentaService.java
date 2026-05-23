@@ -7,49 +7,49 @@ import java.util.List;
 
 public class DetalleVentaService {
 
-    private final DetalleVentaRepository detalleRepository;
+    private final DetalleVentaRepository detailRepository;
 
     public DetalleVentaService() {
-        this.detalleRepository = new DetalleVentaRepositoryImpl();
+        this.detailRepository = new DetalleVentaRepositoryImpl();
     }
 
-    public void registrarDetalle(DetalleVenta detalle) {
-        if (detalle.getCantidad() <= 0) {
-            System.out.println("Error: La cantidad debe ser mayor que cero.");
+    public void registerDetail(DetalleVenta detail) {
+        if (detail.getAmount() <= 0) {
+            System.out.println("\nError: La cantidad debe ser mayor que cero.");
             return;
         }
-        if (detalle.getPrecioUnitario() < 0) {
-            System.out.println("Error: El precio unitario no puede ser negativo.");
+        if (detail.getCurrentPrice() < 0) {
+            System.out.println("\nError: El precio unitario no puede ser negativo.");
             return;
         }
-        detalleRepository.crear(detalle);
+        detailRepository.create(detail);
     }
 
-    public DetalleVenta buscarPorId(int id) {
+    public DetalleVenta getById(int id) {
         if (id <= 0) {
-            System.out.println("Error: El ID introducido no es valido.");
+            System.out.println("\nError: El ID introducido no es valido.");
             return null;
         }
-        return detalleRepository.leerPorId(id);
+        return detailRepository.readById(id);
     }
 
-    public List<DetalleVenta> obtenerTodos() {
-        return detalleRepository.leerTodos();
+    public List<DetalleVenta> getAll() {
+        return detailRepository.readAll();
     }
 
-    public void modificarDetalle(DetalleVenta detalle) {
-        if (detalleRepository.leerPorId(detalle.getId()) == null) {
-            System.out.println("Error: La linea de detalle que intenta modificar no existe.");
+    public void modifyDetail(DetalleVenta detail) {
+        if (detailRepository.readById(detail.getId()) == null) {
+            System.out.println("\nError: La linea de detalle que intenta modificar no existe.");
             return;
         }
-        detalleRepository.actualizar(detalle);
+        detailRepository.refresh(detail);
     }
 
-    public void eliminarDetalle(int id) {
-        if (detalleRepository.leerPorId(id) == null) {
-            System.out.println("Error: La linea de detalle que intenta eliminar no existe.");
+    public void deleteDetail(int id) {
+        if (detailRepository.readById(id) == null) {
+            System.out.println("\nError: La linea de detalle que intenta eliminar no existe.");
             return;
         }
-        detalleRepository.eliminar(id);
+        detailRepository.delete(id);
     }
 }
