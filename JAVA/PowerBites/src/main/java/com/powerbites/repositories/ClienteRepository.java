@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface ClienteRepository {
 
-    void crear(Cliente cliente);
+    void create(Cliente client);
 
-    Cliente leerPorId(int id);
+    Cliente readById(int id);
 
-    List<Cliente> leerTodos();
+    List<Cliente> readAll();
 
-    void actualizar(Cliente cliente);
+    void refresh(Cliente client);
 
-    void eliminar(int id);
+    void delete(int id);
 }
