@@ -7,45 +7,45 @@ import java.util.List;
 
 public class ClienteService {
 
-    private final ClienteRepository clienteRepository;
+    private final ClienteRepository clientRepository;
 
     public ClienteService() {
-        this.clienteRepository = new ClienteRepositoryImpl();
+        this.clientRepository = new ClienteRepositoryImpl();
     }
 
-    public void registrarCliente(Cliente cliente) {
-        if (cliente.getNombre() == null || cliente.getNombre().isEmpty()) {
-            System.out.println("Error: El nombre del cliente no puede estar vacío.");
+    public void registerClient(Cliente client) {
+        if (client.getName() == null || client.getName().isEmpty()) {
+            System.out.println("\nError: El nombre del cliente no puede estar vacío.");
             return;
         }
-        clienteRepository.crear(cliente);
+        clientRepository.create(client);
     }
 
-    public Cliente buscarPorId(int id) {
+    public Cliente getById(int id) {
         if (id <= 0) {
-            System.out.println("Error: El ID introducido no es válido.");
+            System.out.println("\nError: El ID introducido no es válido.");
             return null;
         }
-        return clienteRepository.leerPorId(id);
+        return clientRepository.readById(id);
     }
 
-    public List<Cliente> obtenerTodos() {
-        return clienteRepository.leerTodos();
+    public List<Cliente> getAll() {
+        return clientRepository.readAll();
     }
 
-    public void modificarCliente(Cliente cliente) {
-        if (clienteRepository.leerPorId(cliente.getId()) == null) {
-            System.out.println("Error: El cliente que intenta modificar no existe.");
+    public void modifyClient(Cliente client) {
+        if (clientRepository.readById(client.getId()) == null) {
+            System.out.println("\nError: El cliente que intenta modificar no existe.");
             return;
         }
-        clienteRepository.actualizar(cliente);
+        clientRepository.refresh(client);
     }
 
-    public void darDeBajaCliente(int id) {
-        if (clienteRepository.leerPorId(id) == null) {
-            System.out.println("Error: El cliente que intenta eliminar no existe.");
+    public void deleteClient(int id) {
+        if (clientRepository.readById(id) == null) {
+            System.out.println("\nError: El cliente que intenta eliminar no existe.");
             return;
         }
-        clienteRepository.eliminar(id);
+        clientRepository.delete(id);
     }
 }
