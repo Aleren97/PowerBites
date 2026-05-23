@@ -1,0 +1,129 @@
+package com.powerbites.repositories;
+
+import com.powerbites.entities.Cliente;
+import com.powerbites.util.DataBaseConnection;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClienteRepositoryImpl implements ClienteRepository {
+
+    @Override
+    public void crear(Cliente cliente) {
+
+        String sql = "INSERT INTO CLIENTES (nombre, email, telefono, direccion) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getEmail());
+            stmt.setString(3, cliente.getTelefono());
+            stmt.setString(4, cliente.getDireccion());
+
+            int filasAfectadas = stmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Cliente guardado en la base de datos exitosamente.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al crear el cliente: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Cliente> leerTodos() {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM CLIENTES";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Cliente c = new Cliente(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("email"),
+                        rs.getString("telefono"),
+                        rs.getString("direccion")
+                );
+                clientes.add(c);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los clientes: " + e.getMessage());
+        }
+        return clientes;
+    }
+
+    @Override
+    public Cliente leerPorId(int id) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM CLIENTES WHERE id = ?";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    cliente = new Cliente(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("email"),
+                            rs.getString("telefono"),
+                            rs.getString("direccion")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar el cliente por ID: " + e.getMessage());
+        }
+        return cliente;
+    }
+
+    @Override
+    public void actualizar(Cliente cliente) {
+        String sql = "UPDATE CLIENTES SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getEmail());
+            stmt.setString(3, cliente.getTelefono());
+            stmt.setString(4, cliente.getDireccion());
+            stmt.setInt(5, cliente.getId());
+
+            int filasAfectadas = stmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Los datos del cliente se han actualizado correctamente.");
+            } else {
+                System.out.println("No se encontró ningún cliente con ese ID para actualizar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el cliente: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void eliminar(int id) {
+        String sql = "DELETE FROM CLIENTES WHERE id = ?";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            int filasAfectadas = stmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Cliente eliminado de la base de datos.");
+            } else {
+                System.out.println("No se encontró ningún cliente con ese ID para eliminar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el cliente: " + e.getMessage());
+        }
+    }
+}
