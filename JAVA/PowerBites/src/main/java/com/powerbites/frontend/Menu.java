@@ -7,58 +7,58 @@ import java.util.Scanner;
 public class Menu {
 
     private final Scanner scanner;
-    private final ClienteController clienteController;
-    private final UsuarioController usuarioController;
-    private final ProductoController productoController;
-    private final VentaController ventaController;
-    private final DetalleVentaController detalleVentaController;
+    private final ClienteController clientController;
+    private final UsuarioController userController;
+    private final ProductoController productController;
+    private final VentaController saleController;
+    private final DetalleVentaController detailSaleController;
 
     public Menu() {
         this.scanner = new Scanner(System.in);
-        this.clienteController = new ClienteController();
-        this.usuarioController = new UsuarioController();
-        this.productoController = new ProductoController();
-        this.ventaController = new VentaController();
-        this.detalleVentaController = new DetalleVentaController();
+        this.clientController = new ClienteController();
+        this.userController = new UsuarioController();
+        this.productController = new ProductoController();
+        this.saleController = new VentaController();
+        this.detailSaleController = new DetalleVentaController();
     }
 
-    public void iniciar() {
-        int opcion = -1;
+    public void start() {
+        int option = -1;
 
-        while (opcion != 0) {
-            System.out.println("=== POWERBITES CRM ===");
+        while (option != 0) {
+            System.out.println("\n POWERBITES CRM \n");
             System.out.println("1. Modulo de Clientes.");
             System.out.println("2. Modulo de Usuarios.");
             System.out.println("3. Modulo de Productos.");
             System.out.println("4. Modulo de Ventas.");
             System.out.println("5. Modulo de Detalles de Venta");
             System.out.println("0. Salir de la aplicacion.");
-            System.out.print("Seleccione una opcion del menu principal: ");
+            System.out.print("\nSeleccione una opcion del menu principal: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            procesarOpcion(opcion);
+            processOption(option);
         }
     }
 
-    private void procesarOpcion(int opcion) {
-        switch (opcion) {
-            case 1 -> clienteController.mostrarMenuClientes();
-            case 2 -> usuarioController.mostrarMenuUsuarios();
-            case 3 -> productoController.mostrarMenuProductos();
-            case 4 -> ventaController.mostrarMenuVentas();
-            case 5 -> detalleVentaController.mostrarMenuDetalles();
+    private void processOption(int option) {
+        switch (option) {
+            case 1 -> clientController.showMenuClients();
+            case 2 -> userController.showMenuUser();
+            case 3 -> productController.showMenuProducts();
+            case 4 -> saleController.showMenuSales();
+            case 5 -> detailSaleController.showMenuDetails();
             case 0 -> {
-                System.out.println("Cerrando el sistema CRM. Hasta pronto!");
+                System.out.println("\nCerrando el sistema CRM. Hasta pronto!");
                 DataBaseConnection.closeConnection();
                 scanner.close();
             }
-            default -> System.out.println("Opcion no valida en el menu principal.");
+            default -> System.out.println("\nOpcion no valida en el menu principal.");
         }
     }
 }
