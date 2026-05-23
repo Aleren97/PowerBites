@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+
+     <aside class="navegador">
+        <div class="navegador">
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            <div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="productos.html" class="link__nav">
+                Productos
+                </a>
+                <a href="cliente.html" class="link__nav">
+                Clientes
+                </a>
+                <a href="ventas.html" class="link__nav">
+                Ventas 
+                </a>
+                <a href="usuario.html" class="link__nav">
+                Usuarios 
+                </a>
+            </nav>
+            </div>
+
+
+            
+            <div class="registrado">
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+        
+    </aside>
+
+
+    <section class="section__ventas">
+
+        <div class="CRM">
+            <h1 class="title__CRM">PowerBites</h1>
+        </div>
+
+         <main class="modulo-ventas">
+        <fieldset class="modulo-ventas__seccion">
+            <legend class="modulo-ventas__leyenda">1. Datos de Facturación (Cabecera)</legend>
+            <div class="modulo-ventas__contenedor">
+                <div class="modulo-ventas__grupo-control">
+                    <label class="modulo-ventas__label" for="selectUsuario">Asignar Comercial (Usuario)</label>
+                    <select id="selectUsuario" class="modulo-ventas__select">
+                        <option value="1">--Selecciona cliente--</option>
+                        <option value="2">Laura Comercial (Ventas)</option>
+                        <option value="3">Pedro Distribucion (Logistica)</option>
+                        <option value="4">Admin General (Administrador)</option>
+                        <option value="5">Sofia Ventas (Ventas)</option>
+                        <option value="6">Javier Soporte (Soporte)</option>
+                        <option value="7">Martin Odegaard (Ventas)</option>
+                        <option value="8">Bukayo Saka (Logistica)</option>
+                        <option value="9">Declan Rice (Soporte)</option>
+                        <option value="10">William Saliba (Seguridad)</option>
+                        <option value="11">David Raya (Administrador)</option>
+                    </select>
+                </div>
+                <div class="modulo-ventas__grupo-control">
+                    <label class="modulo-ventas__label" for="selectCliente">Seleccionar Cliente Activo</label>
+                    <select id="selectCliente" class="modulo-ventas__select" required>
+                        </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="modulo-ventas__seccion modulo-ventas__seccion--espaciado">
+            <legend class="modulo-ventas__leyenda">2. Añadir Ítems al Pedido (Detalle_Venta)</legend>
+            <div class="modulo-ventas__contenedor-flex modulo-ventas__contenedor-flex--alineado-abajo">
+                <div class="modulo-ventas__grupo-control modulo-ventas__grupo-control--ancho-doble">
+                    <label class="modulo-ventas__label" for="selectProducto">Barrita Energética (Catálogo)</label>
+                    <select id="selectProducto" class="modulo-ventas__select">
+                        <option value="1" data-precio="2.50">PowerBite Choco (2.50 €)</option>
+                        <option value="2" data-precio="1.80">EnergyCore (1.80 €)</option>
+                        <option value="3" data-precio="2.00">VeganBite (2.00 €)</option>
+                        <option value="4" data-precio="3.00">PreWorkout (3.00 €)</option>
+                        <option value="5" data-precio="2.20">Recovery Almond (2.20 €)</option>
+                        <option value="6" data-precio="1.50">Gunner Drink (1.50 €)</option>
+                        <option value="7" data-precio="35.00">Red Cannon (35.00 €)</option>
+                        <option value="8" data-precio="28.50">Emirates Pre (28.50 €)</option>
+                        <option value="9" data-precio="22.00">North London BCAA (22.00 €)</option>
+                        <option value="10" data-precio="3.50">Invincibles Bar (3.50 €)</option>
+                    </select>
+                </div>
+                <div class="modulo-ventas__grupo-control">
+                    <label class="modulo-ventas__label" for="inputCantidad">Cantidad (Cajas)</label>
+                    <input type="number" id="inputCantidad" class="modulo-ventas__input" value="1" min="1">
+                </div>
+                <div>
+                    <button type="button" id="btnAgregarItem" class="modulo-ventas__btn modulo-ventas__btn--primario">+ Añadir Línea</button>
+                </div>
+            </div>
+
+            <table class="tabla-carrito">
+                <thead class="tabla-carrito__cabecera">
+                    <tr>
+                        <th class="tabla-carrito__celda-titulo">Producto</th>
+                        <th class="tabla-carrito__celda-titulo">Cantidad</th>
+                        <th class="tabla-carrito__celda-titulo">Precio Unitario</th>
+                        <th class="tabla-carrito__celda-titulo">Subtotal</th>
+                        <th class="tabla-carrito__celda-titulo">Quitar</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoCarrito" class="tabla-carrito__cuerpo">
+                    </tbody>
+            </table>
+        </fieldset>
+
+        <div class="modulo-ventas__marcador-total">
+            TOTAL PEDIDO: <span id="txtTotal" class="modulo-ventas__cifra-total">0.00 €</span>
+        </div>
+
+        <div class="modulo-ventas__contenedor-acciones">
+            <button type="button" id="btnGuardarVenta" class="modulo-ventas__btn modulo-ventas__btn--exito">Confirmar y Registrar Venta</button>
+        </div>
+    </main>
+
+    </section>
+
+    <script src="ventas.js"></script>
+
+</body>
+</html>

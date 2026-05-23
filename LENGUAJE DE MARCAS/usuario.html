@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Gestión de Usuarios Internos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+
+
+    <aside class="Navegador">
+        <div class="navegador">
+            <div class="logo__title">
+                <span><img src="img/Logo-PowerBites.png" alt="" class="header__logo"></span>
+            </div>
+            <div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="link__nav">
+                Dashboard
+                </a>
+                <a href="productos.html" class="link__nav">
+                Productos
+                </a>
+                <a href="cliente.html" class="link__nav">
+                Clientes
+                </a>
+                <a href="ventas.html" class="link__nav">
+                Ventas 
+                </a>
+                <a href="usuario.html" class="link__nav">
+                Usuarios 
+                </a>
+            </nav>
+            </div>
+
+
+            
+            <div class="registrado">
+    <a href="registro.html" class="link__nav__img"><img src="img\User.png" alt="" id="usuario" class="usuario">
+        <span id="avatar-inicial" class="avatar-inicial"></span>
+        <span id="user__nombre">Registrarse</span></a>
+    </div>
+        
+    </aside>
+
+    <main class="main-content">
+
+        <section class="modulo-crm__seccion">
+            <h2 class="modulo-crm__subtitulo">Dar de Alta Nuevo Usuario</h2>
+            <form id="usuarioFormDirecto" class="form-crm">
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="usrNombre">Nombre y Apellidos</label>
+                    <input class="form-crm__input" type="text" id="usrNombre" required placeholder="Ej: Carlos Gómez">
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="usrEmail">Correo Electrónico Corp.</label>
+                    <input class="form-crm__input" type="email" id="usrEmail" required placeholder="Ej: carlos@empresa.com">
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="usrRol">Rol / Puesto Asignado</label>
+                    <select id="usrRol" class="form-crm__input" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Director Comercial">Director Comercial</option>
+                        <option value="Comercial Junior">Comercial Junior</option>
+                        <option value="Atención al Cliente">Atención al Cliente</option>
+                    </select>
+                </div>
+                <div class="form-crm__group">
+                    <label class="form-crm__label" for="usrPassword">Contraseña Inicial</label>
+                    <input class="form-crm__input" type="password" id="usrPassword" required placeholder="••••••••">
+                </div>
+                <div class="form-crm__actions">
+                    <button type="submit" class="user-btn--primary" id="btnGuardarUsuarioDirecto">Registrar Empleado</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="modulo-crm__seccion-consulta">
+            <h2 class="modulo-crm__subtitulo">Consultar Personal Activo</h2>
+            <div class="consulta-bar">
+                <div class="form-crm__group" style="flex: 1;">
+                    <label class="form-crm__label" for="selectUsuarioConsulta">Selecciona un Usuario del Equipo:</label>
+                    <select id="selectUsuarioConsulta" class="form-crm__input">
+                        </select>
+                </div>
+                <button type="button" id="btnVerFichaUsuario" class="user-btn--primary">Ver Ficha</button>
+                <button type="button" id="btnBorrarUsuarioConsulta" class="btn--danger" style="padding: 10px 20px; height: 42px;">Dar de Baja</button>
+            </div>
+
+            <div id="apartadoFichaUsuario" class="ficha-cliente">
+                <h3 id="fichaUsuarioNombre">-</h3>
+                <table class="tabla-ficha">
+                    <thead>
+                        <tr>
+                            <th>Propiedad de Seguridad</th>
+                            <th>Valor en Base de Datos de Sesión</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoFichaUsuario">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="ventas.js"></script>
+</body>
+</html>
