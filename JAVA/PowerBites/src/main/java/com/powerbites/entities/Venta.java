@@ -4,47 +4,45 @@ import java.sql.Date;
 
 public class Venta {
     private int id;
-    private int clienteId;
-    private int usuarioId;
-    private Date fecha;
-    private String estado;
+    private int clientId;
+    private int userId;
+    private Date date;
+    private String status;
     private double total;
 
-    public Venta(int id, int clienteId, int usuarioId, Date fecha, String estado, double total) {
+    public Venta(int id, int clientId, int userId, Date date, String status, double total) {
         this.id = id;
-        this.clienteId = clienteId;
-        this.usuarioId = usuarioId;
-        this.fecha = fecha;
-        this.estado = estado;
+        this.clientId = clientId;
+        this.userId = userId;
+        this.date = date;
+        this.status = status;
         this.total = total;
     }
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getClienteId() { return clienteId; }
-    public void setClienteId(int clienteId) { this.clienteId = clienteId; }
+    public int getClientId() { return clientId; }
+    public void setClientId(int clientId) { this.clientId = clientId; }
 
-    public int getUsuarioId() { return usuarioId; }
-    public void setUsuarioId(int usuarioId) { this.usuarioId = usuarioId; }
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    public Date getFecha() { return fecha; }
-    public void setFecha(Date fecha) { this.fecha = fecha; }
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
 
-    public void mostrarDetalles() {
-        System.out.println("=== VENTA #" + id + " ===");
-        System.out.println("ID Cliente: " + clienteId);
-        System.out.println("ID Comercial (Usuario): " + usuarioId);
-        System.out.println("Fecha: " + fecha.toString());
-        System.out.println("Estado: " + estado);
-        System.out.println("Total: " + total + " euros");
-        System.out.println("==================");
+    public void showDetails() {
+        System.out.println("\n VENTA #" + id + "\n");
+        System.out.println("ID Cliente: " + clientId);
+        System.out.println("ID Comercial (Usuario): " + userId);
+        System.out.println("Fecha: " + date.toString());
+        System.out.println("Estado: " + status);
+        System.out.println("Total: " + total + " euros\n");
     }
 }
