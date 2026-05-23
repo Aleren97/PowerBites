@@ -10,19 +10,19 @@ import java.util.List;
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
-    public void crear(Usuario usuario) {
+    public void create(Usuario user) {
         String sql = "INSERT INTO USUARIOS (nombre, email, rol, password_hash) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, usuario.getNombre());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getRol());
-            stmt.setString(4, usuario.getPasswordHash());
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getRol());
+            stmt.setString(4, user.getPasswordHash());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Usuario comercial registrado con exito.");
             }
         } catch (SQLException e) {
@@ -31,8 +31,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public Usuario leerPorId(int id) {
-        Usuario usuario = null;
+    public Usuario readById(int id) {
+        Usuario user = null;
         String sql = "SELECT * FROM USUARIOS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -42,7 +42,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    usuario = new Usuario(
+                    user = new Usuario(
                             rs.getInt("id"),
                             rs.getString("nombre"),
                             rs.getString("email"),
@@ -54,12 +54,12 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         } catch (SQLException e) {
             System.err.println("Error al buscar el usuario por ID: " + e.getMessage());
         }
-        return usuario;
+        return user;
     }
 
     @Override
-    public List<Usuario> leerTodos() {
-        List<Usuario> usuarios = new ArrayList<>();
+    public List<Usuario> readAll() {
+        List<Usuario> users = new ArrayList<>();
         String sql = "SELECT * FROM USUARIOS";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -74,29 +74,29 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("rol"),
                         rs.getString("password_hash")
                 );
-                usuarios.add(u);
+                users.add(u);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener la lista de usuarios: " + e.getMessage());
         }
-        return usuarios;
+        return users;
     }
 
     @Override
-    public void actualizar(Usuario usuario) {
+    public void refresh(Usuario user) {
         String sql = "UPDATE USUARIOS SET nombre = ?, email = ?, rol = ?, password_hash = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, usuario.getNombre());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getRol());
-            stmt.setString(4, usuario.getPasswordHash());
-            stmt.setInt(5, usuario.getId());
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getRol());
+            stmt.setString(4, user.getPasswordHash());
+            stmt.setInt(5, user.getId());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Los datos del usuario se han actualizado correctamente.");
             }
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void delete(int id) {
         String sql = "DELETE FROM USUARIOS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -113,8 +113,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
             stmt.setInt(1, id);
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Usuario eliminado del sistema.");
             }
         } catch (SQLException e) {
