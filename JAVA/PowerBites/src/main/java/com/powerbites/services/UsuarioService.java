@@ -7,45 +7,45 @@ import java.util.List;
 
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository userRepository;
 
     public UsuarioService() {
-        this.usuarioRepository = new UsuarioRepositoryImpl();
+        this.userRepository = new UsuarioRepositoryImpl();
     }
 
-    public void registrarUsuario(Usuario usuario) {
-        if (usuario.getNombre() == null || usuario.getNombre().isEmpty()) {
-            System.out.println("Error: El nombre del usuario no puede estar vacio.");
+    public void registerUser(Usuario user) {
+        if (user.getName() == null || user.getName().isEmpty()) {
+            System.out.println("\nError: El nombre del usuario no puede estar vacio.");
             return;
         }
-        usuarioRepository.crear(usuario);
+        userRepository.create(user);
     }
 
-    public Usuario buscarPorId(int id) {
+    public Usuario getById(int id) {
         if (id <= 0) {
-            System.out.println("Error: El ID introducido no es valido.");
+            System.out.println("\nError: El ID introducido no es valido.");
             return null;
         }
-        return usuarioRepository.leerPorId(id);
+        return userRepository.readById(id);
     }
 
-    public List<Usuario> obtenerTodos() {
-        return usuarioRepository.leerTodos();
+    public List<Usuario> getAll() {
+        return userRepository.readAll();
     }
 
-    public void modificarUsuario(Usuario usuario) {
-        if (usuarioRepository.leerPorId(usuario.getId()) == null) {
-            System.out.println("Error: El usuario que intenta modificar no existe.");
+    public void modifyUser(Usuario user) {
+        if (userRepository.readById(user.getId()) == null) {
+            System.out.println("\nError: El usuario que intenta modificar no existe.");
             return;
         }
-        usuarioRepository.actualizar(usuario);
+        userRepository.refresh(user);
     }
 
-    public void eliminarUsuario(int id) {
-        if (usuarioRepository.leerPorId(id) == null) {
-            System.out.println("Error: El usuario que intenta eliminar no existe.");
+    public void deleteUser(int id) {
+        if (userRepository.readById(id) == null) {
+            System.out.println("\nError: El usuario que intenta eliminar no existe.");
             return;
         }
-        usuarioRepository.eliminar(id);
+        userRepository.delete(id);
     }
 }
