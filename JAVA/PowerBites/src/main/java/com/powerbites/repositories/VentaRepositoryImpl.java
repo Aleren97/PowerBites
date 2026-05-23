@@ -10,20 +10,20 @@ import java.util.List;
 public class VentaRepositoryImpl implements VentaRepository {
 
     @Override
-    public void crear(Venta venta) {
+    public void create(Venta sale) {
         String sql = "INSERT INTO VENTAS (cliente_id, usuario_id, fecha, estado, total) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, venta.getClienteId());
-            stmt.setInt(2, venta.getUsuarioId());
-            stmt.setDate(3, venta.getFecha());
-            stmt.setString(4, venta.getEstado());
-            stmt.setDouble(5, venta.getTotal());
+            stmt.setInt(1, sale.getClientId());
+            stmt.setInt(2, sale.getUserId());
+            stmt.setDate(3, sale.getDate());
+            stmt.setString(4, sale.getStatus());
+            stmt.setDouble(5, sale.getTotal());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Venta registrada en el sistema exitosamente.");
             }
         } catch (SQLException e) {
@@ -32,8 +32,8 @@ public class VentaRepositoryImpl implements VentaRepository {
     }
 
     @Override
-    public Venta leerPorId(int id) {
-        Venta venta = null;
+    public Venta readById(int id) {
+        Venta sale = null;
         String sql = "SELECT * FROM VENTAS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -43,7 +43,7 @@ public class VentaRepositoryImpl implements VentaRepository {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    venta = new Venta(
+                    sale = new Venta(
                             rs.getInt("id"),
                             rs.getInt("cliente_id"),
                             rs.getInt("usuario_id"),
@@ -56,12 +56,12 @@ public class VentaRepositoryImpl implements VentaRepository {
         } catch (SQLException e) {
             System.err.println("Error al buscar la venta por ID: " + e.getMessage());
         }
-        return venta;
+        return sale;
     }
 
     @Override
-    public List<Venta> leerTodos() {
-        List<Venta> ventas = new ArrayList<>();
+    public List<Venta> readAll() {
+        List<Venta> sales = new ArrayList<>();
         String sql = "SELECT * FROM VENTAS";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -77,30 +77,30 @@ public class VentaRepositoryImpl implements VentaRepository {
                         rs.getString("estado"),
                         rs.getDouble("total")
                 );
-                ventas.add(v);
+                sales.add(v);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener el registro de ventas: " + e.getMessage());
         }
-        return ventas;
+        return sales;
     }
 
     @Override
-    public void actualizar(Venta venta) {
+    public void refresh(Venta sale) {
         String sql = "UPDATE VENTAS SET cliente_id = ?, usuario_id = ?, fecha = ?, estado = ?, total = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, venta.getClienteId());
-            stmt.setInt(2, venta.getUsuarioId());
-            stmt.setDate(3, venta.getFecha());
-            stmt.setString(4, venta.getEstado());
-            stmt.setDouble(5, venta.getTotal());
-            stmt.setInt(6, venta.getId());
+            stmt.setInt(1, sale.getClientId());
+            stmt.setInt(2, sale.getUserId());
+            stmt.setDate(3, sale.getDate());
+            stmt.setString(4, sale.getStatus());
+            stmt.setDouble(5, sale.getTotal());
+            stmt.setInt(6, sale.getId());
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Los datos de la venta se han actualizado correctamente.");
             }
         } catch (SQLException e) {
@@ -109,7 +109,7 @@ public class VentaRepositoryImpl implements VentaRepository {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void delete(int id) {
         String sql = "DELETE FROM VENTAS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -117,8 +117,8 @@ public class VentaRepositoryImpl implements VentaRepository {
 
             stmt.setInt(1, id);
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
                 System.out.println("Venta eliminada del sistema.");
             }
         } catch (SQLException e) {
