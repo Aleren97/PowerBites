@@ -55,8 +55,16 @@ class detalles_venta {
 const obtenerUsuariosDeSesion = () => {
     const datos = sessionStorage.getItem('crm_usuarios');
     return datos ? JSON.parse(datos) : [
-        new Usuario(1, "Diego Carnicero", "diego.carnicero@estudiante.xtart.com", "Director Comercial"),
-        new Usuario(2, "Beatriz Administradora", "beatriz@crm.com", "Admin")
+        new usuarios(1, 'Laura Comercial', 'laura@powerbites.com', 'Ventas', 'hash123'),
+        new usuarios(2, 'Pedro Distribucion', 'pedro@powerbites.com', 'Logistica', 'hash456'),
+        new usuarios(3, 'Admin General', 'admin@powerbites.com', 'Administrador', 'hash789'),
+        new usuarios(4, 'Sofia Ventas', 'sofia@powerbites.com', 'Ventas', 'hash321'),
+        new usuarios(5, 'Javier Soporte', 'javier@powerbites.com', 'Soporte', 'hash654'),
+        new usuarios(6, 'Martin Odegaard', 'martin@powerbites.com', 'Ventas', 'hash10'),
+        new usuarios(7, 'Bukayo Saka', 'bukayo@powerbites.com', 'Logistica', 'hash07'),
+        new usuarios(8, 'Declan Rice', 'declan@powerbites.com', 'Soporte', 'hash41'),
+        new usuarios(9, 'William Saliba', 'william@powerbites.com', 'Seguridad', 'hash02'),
+        new usuarios(10, 'David Raya', 'david@powerbites.com', 'Administrador', 'hash22')
     ];
 };
 
@@ -67,18 +75,32 @@ const guardarClientesEnSesion = (listaClientes) => {
 const obtenerClientesDeSesion = () => {
     const datos = sessionStorage.getItem('crm_clientes');
     return datos ? JSON.parse(datos) : [
-        new Cliente(1, "Diego Carnicero", "diego.carnicero@estudiante.xtart.com", "555-1234", "Calle Falsa 123"),
-        new Cliente(2, "Stark Ind.", "tony@stark.com", "555-9999", "Torre Stark")
+        new clientes(1, 'Gimnasio FitLife', 'contacto@fitlife.com', '600111222', 'Calle Falsa 123'),
+        new clientes(2, 'NutriSport S.L.', 'ventas@nutrisport.es', '600333444', 'Avenida Central 45'),
+        new clientes(3, 'CrossFit Titan', 'info@titancf.com', '600555666', 'Nave 3, Poligono Ind.'),
+        new clientes(4, 'Supermercado Sano', 'compras@sano.com', '600777888', 'Plaza Mayor 1'),
+        new clientes(5, 'Carlos Runner', 'carlos@mail.com', '600999000', 'Calle Corredores 4'),
+        new clientes(6, 'Emirates Fitness', 'info@emiratesfit.com', '611222333', 'London Colney 1'),
+        new clientes(7, 'Gunners Nutrition', 'ventas@gunners.co.uk', '611444555', 'Highbury Square'),
+        new clientes(8, 'Cannon Crossfit', 'box@cannoncf.com', '611666777', 'Arteta Avenue'),
+        new clientes(9, 'North London Sports', 'nls@sports.com', '611888999', 'Islington 14'),
+        new clientes(10, 'Invincibles Gym', 'invincibles@gym.com', '611000111', 'Trophy Room 49')
     ];
 };
 
 const obtenerProductosDeSesion = () => {
     const datos = sessionStorage.getItem('crm_productos');
-    // CORREGIDO: Ahora usa 'new productos' en minúscula y plural, igual que tu clase
     return datos ? JSON.parse(datos) : [
-        new productos(1, "Barritas de chocolate", "Barritas energéticas de chocolate", 50.00, "Dulce"),
-        new productos(2, "Barritas de fresa", "Barritas energéticas de fresa", 45.50, "Frutas"),
-        new productos(3, "Barritas sin gluten", "Barritas energéticas sin gluten", 80.00, "Especiales")
+        new productos(1,'PowerBite Choco', 'Barrita 20g proteina', 2.50, 'Proteina'),
+        new productos(2, 'EnergyCore', 'Avena y frutos rojos', 1.80, 'Carbohidratos'),
+        new productos(3, 'VeganBite', 'Sin gluten, vegana', 2.00, 'Vegana'),
+        new productos(4, 'PreWorkout', 'Con cafeina extra', 3.00, 'Pre-entreno'),
+        new productos(5, 'Recovery Almond', 'Almendras y miel', 2.20, 'Recuperacion'),
+        new productos(6, 'Gunner Drink', 'Bebida isotonica', 1.50, 'Hidratacion'),
+        new productos(7, 'Red Cannon', 'Proteina suero', 35.00, 'Suplemento'),
+        new productos(8, 'Emirates Pre', 'Explosion energia', 28.50, 'Pre-entreno'),
+        new productos(9, 'North London BCAA', 'Recuperacion', 22.00, 'Recuperacion'),
+        new productos(10, 'Invincibles Bar', 'Barrita oro', 3.50, 'Carbohidratos')
     ];
 };
 
@@ -86,11 +108,35 @@ const obtenerProductosDeSesion = () => {
 const obtenerVentasDeSesion = () => {
     const datos = sessionStorage.getItem('crm_ventas');
     return datos ? JSON.parse(datos) : [
-        new Venta(1, 1, 1, "2026-05-19", "Comercial", 1245.50),
-        new Venta(2, 2, 1, "2026-05-18", "Pendiente", 180.00)
+        new ventas(1, 1, 1, '2023-10-01', 'Completado', 125.00),
+        new ventas(2, 2, 4, '2023-10-02', 'Pendiente', 90.00),
+        new ventas(3, 3, 1, '2023-10-03', 'Enviado', 150.00),
+        new ventas(4, 4, 4, '2023-10-04', 'Completado', 44.00),
+        new ventas(5, 5, 1, '2023-10-05', 'Cancelado', 20.00),
+        new ventas(6, 6, 6, '2023-10-06', 'Completado', 200.00),
+        new ventas(7, 7, 7, '2023-10-07', 'Enviado', 350.00),
+        new ventas(8, 8, 8, '2023-10-08', 'Pendiente', 120.00),
+        new ventas(9, 9, 9, '2023-10-09', 'Completado', 85.00),
+        new ventas(10, 10, 10, '2023-10-10', 'Pendiente', 400.00)
     ];
 };
 
+
+const obtenerDetallesVentasDeSesion = () => {
+    const datos = sessionStorage.getItem('crm_Detallesventas');
+    return datos ? JSON.parse(datos) : [
+        new detalles_venta(1, 1, 1, 50, 2.50),
+        new detalles_venta(2, 2, 2, 50, 1.80),
+        new detalles_venta(3, 3, 4, 50, 3.00),
+        new detalles_venta(4, 4, 5, 20, 2.20),
+        new detalles_venta(5, 5, 3, 10, 2.00),
+        new detalles_venta(6, 6, 6, 100, 1.50),
+        new detalles_venta(7, 7, 7, 10, 35.00),
+        new detalles_venta(8, 8, 8, 5, 28.50),
+        new detalles_venta(9, 9, 9, 4, 22.00),
+        new detalles_venta(10, 10, 10, 115, 3.50)
+    ];
+};
 //ventas
 let carritoLineas = [];
 
