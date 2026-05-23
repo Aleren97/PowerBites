@@ -1,29 +1,28 @@
 package com.powerbites.entities;
 
 public class Cliente extends Persona {
-    private String telefono;
-    private String direccion;
+    private String phone;
+    private String adress;
 
-    public Cliente(int id, String nombre, String email, String telefono, String direccion) {
-        super(id, nombre, email);
-        this.telefono = telefono;
-        this.direccion = direccion;
+    public Cliente(int id, String name, String email, String phone, String adress) {
+        super(id, name, email);
+        this.phone = phone;
+        this.adress = adress;
     }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public String getAdress() { return adress; }
+    public void setAdress(String adress) { this.adress = adress; }
 
     @Override
-    public void mostrarDetalles() {
-        System.out.println("=== CLIENTE ===");
+    public void showDetails() {
+        System.out.println("\n CLIENTE \n");
         System.out.println("ID: " + id);
-        System.out.println("Nombre: " + nombre);
+        System.out.println("Nombre: " + name);
         System.out.println("Email: " + email);
-        System.out.println("Teléfono: " + telefono);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("===============");
+        System.out.println("Teléfono: " + phone);
+        System.out.println("Dirección: " + adress + "\n");
     }
 }
