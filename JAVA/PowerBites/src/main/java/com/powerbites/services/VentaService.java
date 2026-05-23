@@ -7,45 +7,45 @@ import java.util.List;
 
 public class VentaService {
 
-    private final VentaRepository ventaRepository;
+    private final VentaRepository saleRepository;
 
     public VentaService() {
-        this.ventaRepository = new VentaRepositoryImpl();
+        this.saleRepository = new VentaRepositoryImpl();
     }
 
-    public void registrarVenta(Venta venta) {
-        if (venta.getTotal() < 0) {
-            System.out.println("Error: El total de la venta no puede ser negativo.");
+    public void registerSale(Venta sale) {
+        if (sale.getTotal() < 0) {
+            System.out.println("\nError: El total de la venta no puede ser negativo.");
             return;
         }
-        ventaRepository.crear(venta);
+        saleRepository.create(sale);
     }
 
-    public Venta buscarPorId(int id) {
+    public Venta getById(int id) {
         if (id <= 0) {
-            System.out.println("Error: El ID introducido no es valido.");
+            System.out.println("\nError: El ID introducido no es valido.");
             return null;
         }
-        return ventaRepository.leerPorId(id);
+        return saleRepository.readById(id);
     }
 
-    public List<Venta> obtenerTodas() {
-        return ventaRepository.leerTodos();
+    public List<Venta> getAll() {
+        return saleRepository.readAll();
     }
 
-    public void modificarVenta(Venta venta) {
-        if (ventaRepository.leerPorId(venta.getId()) == null) {
-            System.out.println("Error: La venta que intenta modificar no existe.");
+    public void modifySale(Venta sale) {
+        if (saleRepository.readById(sale.getId()) == null) {
+            System.out.println("\nError: La venta que intenta modificar no existe.");
             return;
         }
-        ventaRepository.actualizar(venta);
+        saleRepository.refresh(sale);
     }
 
-    public void eliminarVenta(int id) {
-        if (ventaRepository.leerPorId(id) == null) {
-            System.out.println("Error: La venta que intenta eliminar no existe.");
+    public void deleteSale(int id) {
+        if (saleRepository.readById(id) == null) {
+            System.out.println("\nError: La venta que intenta eliminar no existe.");
             return;
         }
-        ventaRepository.eliminar(id);
+        saleRepository.delete(id);
     }
 }
