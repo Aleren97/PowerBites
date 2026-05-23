@@ -7,49 +7,49 @@ import java.util.List;
 
 public class ProductoService {
 
-    private final ProductoRepository productoRepository;
+    private final ProductoRepository productRepository;
 
     public ProductoService() {
-        this.productoRepository = new ProductoRepositoryImpl();
+        this.productRepository = new ProductoRepositoryImpl();
     }
 
-    public void registrarProducto(Producto producto) {
-        if (producto.getNombre() == null || producto.getNombre().isEmpty()) {
-            System.out.println("Error: El nombre del producto no puede estar vacio.");
+    public void registerProduct(Producto product) {
+        if (product.getName() == null || product.getName().isEmpty()) {
+            System.out.println("\nError: El nombre del producto no puede estar vacio.");
             return;
         }
-        if (producto.getPrecio() < 0) {
-            System.out.println("Error: El precio no puede ser negativo.");
+        if (product.getPrice() < 0) {
+            System.out.println("\nError: El precio no puede ser negativo.");
             return;
         }
-        productoRepository.crear(producto);
+        productRepository.create(product);
     }
 
-    public Producto buscarPorId(int id) {
+    public Producto getById(int id) {
         if (id <= 0) {
-            System.out.println("Error: El ID introducido no es valido.");
+            System.out.println("\nError: El ID introducido no es valido.");
             return null;
         }
-        return productoRepository.leerPorId(id);
+        return productRepository.readById(id);
     }
 
-    public List<Producto> obtenerTodos() {
-        return productoRepository.leerTodos();
+    public List<Producto> getAll() {
+        return productRepository.readAll();
     }
 
-    public void modificarProducto(Producto producto) {
-        if (productoRepository.leerPorId(producto.getId()) == null) {
-            System.out.println("Error: El producto que intenta modificar no existe.");
+    public void modifyProduct(Producto product) {
+        if (productRepository.readById(product.getId()) == null) {
+            System.out.println("\nError: El producto que intenta modificar no existe.");
             return;
         }
-        productoRepository.actualizar(producto);
+        productRepository.refresh(product);
     }
 
-    public void eliminarProducto(int id) {
-        if (productoRepository.leerPorId(id) == null) {
-            System.out.println("Error: El producto que intenta eliminar no existe.");
+    public void deleteProduct(int id) {
+        if (productRepository.readById(id) == null) {
+            System.out.println("\nError: El producto que intenta eliminar no existe.");
             return;
         }
-        productoRepository.eliminar(id);
+        productRepository.delete(id);
     }
 }
