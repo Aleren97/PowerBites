@@ -7,18 +7,18 @@ import java.util.Scanner;
 
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioService userService;
     private final Scanner scanner;
 
     public UsuarioController() {
-        this.usuarioService = new UsuarioService();
+        this.userService = new UsuarioService();
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenuUsuarios() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("=== GESTION DE USUARIOS (COMERCIALES) ===");
+    public void showMenuUser() {
+        int option = -1;
+        while (option != 0) {
+            System.out.println("\n GESTION DE USUARIOS (COMERCIALES) \n");
             System.out.println("1. Registrar nuevo usuario");
             System.out.println("2. Buscar usuario por ID");
             System.out.println("3. Listar todos los usuarios");
@@ -28,107 +28,116 @@ public class UsuarioController {
             System.out.print("Seleccione una opcion: ");
 
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Por favor, introduzca un numero valido.");
+                System.out.println("\nError: Por favor, introduzca un numero valido.");
                 continue;
             }
 
-            switch (opcion) {
-                case 1: registrar(); break;
-                case 2: buscar(); break;
-                case 3: listar(); break;
-                case 4: modificar(); break;
-                case 5: eliminar(); break;
-                case 0: System.out.println("Saliendo del menu de usuarios..."); break;
-                default: System.out.println("Opcion no valida.");
+            switch (option) {
+                case 1 -> register();
+                case 2 -> search();
+                case 3 -> list();
+                case 4 -> modify();
+                case 5 -> delete();
+                case 0 -> System.out.println("\nSaliendo del menu de usuarios...");
+                default -> System.out.println("\nOpcion no valida.");
             }
         }
     }
 
-    private void registrar() {
-        System.out.println("--- REGISTRO DE USUARIO ---");
+    private void register() {
+        System.out.println("\n REGISTRO DE USUARIO \n");
+        
         System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
+        String name = scanner.nextLine();
+        
         System.out.print("Email: ");
         String email = scanner.nextLine();
+        
         System.out.print("Rol (Ventas, Logistica, Administrador...): ");
         String rol = scanner.nextLine();
+        
         System.out.print("Contrasena: ");
         String password = scanner.nextLine();
 
-        Usuario nuevoUsuario = new Usuario(0, nombre, email, rol, password);
-        usuarioService.registrarUsuario(nuevoUsuario);
+        Usuario newUser = new Usuario(0, name, email, rol, password);
+        userService.registerUser(newUser);
     }
 
-    private void buscar() {
-        System.out.print("Introduzca el ID del usuario a buscar: ");
+    private void search() {
+        System.out.print("\nIntroduzca el ID del usuario a buscar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Usuario usuario = usuarioService.buscarPorId(id);
-            if (usuario != null) {
-                usuario.mostrarDetalles();
+            Usuario user = userService.getById(id);
+            
+            if (user != null) {
+                user.showDetails();
             } else {
-                System.out.println("No se encontro ningun usuario con ese ID.");
+                System.out.println("\nNo se encontro ningun usuario con ese ID.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void listar() {
-        System.out.println("--- LISTA DE USUARIOS ---");
-        List<Usuario> usuarios = usuarioService.obtenerTodos();
-        if (usuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
+    private void list() {
+        System.out.println("\n LISTA DE USUARIOS \n");
+        List<Usuario> users = userService.getAll();
+        
+        if (users.isEmpty()) {
+            System.out.println("\nNo hay usuarios registrados.");
         } else {
-            for (Usuario u : usuarios) {
-                u.mostrarDetalles();
+            for (Usuario u : users) {
+                u.showDetails();
             }
         }
     }
 
-    private void modificar() {
-        System.out.print("Introduzca el ID del usuario a modificar: ");
+    private void modify() {
+        System.out.print("\nIntroduzca el ID del usuario a modificar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Usuario usuarioExistente = usuarioService.buscarPorId(id);
+            Usuario currentUser = userService.getById(id);
 
-            if (usuarioExistente != null) {
-                System.out.println("Deje el campo en blanco y pulse Enter si no desea modificarlo.");
+            if (currentUser != null) {
+                System.out.println("\nDeje el campo en blanco y pulse Enter si no desea modificarlo.");
 
-                System.out.print("Nuevo Nombre (" + usuarioExistente.getNombre() + "): ");
-                String nombre = scanner.nextLine();
-                if (!nombre.isEmpty()) usuarioExistente.setNombre(nombre);
+                System.out.print("\nNuevo Nombre (" + currentUser.getName() + "): ");
+                String name = scanner.nextLine();
+                if (!name.isEmpty()) currentUser.setName(name);
 
-                System.out.print("Nuevo Email (" + usuarioExistente.getEmail() + "): ");
+                System.out.print("Nuevo Email (" + currentUser.getEmail() + "): ");
                 String email = scanner.nextLine();
-                if (!email.isEmpty()) usuarioExistente.setEmail(email);
+                if (!email.isEmpty()) currentUser.setEmail(email);
 
-                System.out.print("Nuevo Rol (" + usuarioExistente.getRol() + "): ");
+                System.out.print("Nuevo Rol (" + currentUser.getRol() + "): ");
                 String rol = scanner.nextLine();
-                if (!rol.isEmpty()) usuarioExistente.setRol(rol);
+                if (!rol.isEmpty()) currentUser.setRol(rol);
 
                 System.out.print("Nueva Contrasena: ");
                 String password = scanner.nextLine();
-                if (!password.isEmpty()) usuarioExistente.setPasswordHash(password);
+                if (!password.isEmpty()) currentUser.setPasswordHash(password);
 
-                usuarioService.modificarUsuario(usuarioExistente);
+                userService.modifyUser(currentUser);
             } else {
-                System.out.println("No se encontro el usuario.");
+                System.out.println("\nNo se encontro el usuario.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 
-    private void eliminar() {
-        System.out.print("Introduzca el ID del usuario a eliminar: ");
+    private void delete() {
+        System.out.print("\nIntroduzca el ID del usuario a eliminar: ");
+        
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            usuarioService.eliminarUsuario(id);
+            userService.deleteUser(id);
         } catch (NumberFormatException e) {
-            System.out.println("ID invalido.");
+            System.out.println("\nID invalido.");
         }
     }
 }
