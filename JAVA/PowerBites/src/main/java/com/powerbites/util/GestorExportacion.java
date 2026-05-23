@@ -8,26 +8,26 @@ import java.util.List;
 
 public class GestorExportacion {
 
-    public static void exportarClientesCSV(List<Cliente> clientes) {
-        String nombreArchivo = "Listado Clientes.csv";
+    public static void exportClientsCSV(List<Cliente> clients) {
+        String fileName = "Listado Clientes.csv";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
-            // Escribimos la cabecera
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+
             writer.write("ID,Nombre,Email,Telefono,Direccion");
             writer.newLine();
 
-            for (Cliente c : clientes) {
+            for (Cliente c : clients) {
                 writer.write(c.getId() + "," +
-                        c.getNombre() + "," +
+                        c.getName() + "," +
                         c.getEmail() + "," +
-                        c.getTelefono() + "," +
-                        c.getDireccion());
+                        c.getPhone() + "," +
+                        c.getAdress());
                 writer.newLine();
             }
-            System.out.println("¡Datos exportados correctamente al archivo: " + nombreArchivo + "!");
+            System.out.println("\n¡Datos exportados correctamente al archivo: " + fileName + "!");
 
         } catch (IOException e) {
-            System.err.println("Error al exportar los datos: " + e.getMessage());
+            System.err.println("\nError al exportar los datos: " + e.getMessage());
         }
     }
 }
