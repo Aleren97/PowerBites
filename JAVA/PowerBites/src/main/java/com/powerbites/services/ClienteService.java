@@ -38,7 +38,7 @@ public class ClienteService {
             System.out.println("\nError: El cliente que intenta modificar no existe.");
             return;
         }
-        clientRepository.refresh(client);
+        clientRepository.update(client);
     }
 
     public void deleteClient(int id) {

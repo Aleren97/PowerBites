@@ -37,12 +37,16 @@ public class Venta {
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
 
-    public void showDetails() {
-        System.out.println("\n VENTA #" + id + "\n");
-        System.out.println("ID Cliente: " + clientId);
-        System.out.println("ID Comercial (Usuario): " + userId);
-        System.out.println("Fecha: " + date.toString());
-        System.out.println("Estado: " + status);
-        System.out.println("Total: " + total + " euros\n");
+
+
+    @Override
+    public String toString() {
+        return "\n Venta " +id + "\n" +
+                ", ClienteId=" + clientId +
+                ", UsuarioId=" + userId +
+                ", Fecha=" + date.toString() +
+                ", Estado='" + status + '\'' +
+                ", Total=" + total + " euros" +
+                '\n';
     }
 }

@@ -30,12 +30,14 @@ public class DetalleVenta {
     public double getCurrentPrice() { return currentPrice; }
     public void setCurrentPrice(double currentPrice) { this.currentPrice = currentPrice; }
 
-    public void showDetails() {
-        System.out.println("\n LINEA DE DETALLE #" + id + "\n");
-        System.out.println("ID Venta Asociada: " + saleId);
-        System.out.println("ID Producto: " + productId);
-        System.out.println("Cantidad: " + amount + " unidades.");
-        System.out.println("Precio Unitario: " + currentPrice + " euros.");
-        System.out.println("Subtotal de linea: " + (amount * currentPrice) + " euros.\n");
+
+    @Override
+    public String toString() {
+        return "\n DetalleVenta " +id + "\n"+
+                ", saleId= " + saleId +
+                ", productId= " + productId +
+                ", amount= " + amount +
+                ", currentPrice= " + currentPrice +
+                '\n';
     }
 }

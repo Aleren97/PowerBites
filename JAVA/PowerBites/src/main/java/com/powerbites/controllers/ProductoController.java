@@ -83,7 +83,7 @@ public class ProductoController {
             Producto product = productService.getById(id);
             
             if (product != null) {
-                product.showDetails();
+                System.out.println(product);
             } else {
                 System.out.println("\nNo se encontro ningun producto con ese ID.");
             }
@@ -99,7 +99,7 @@ public class ProductoController {
             System.out.println("\nNo hay productos registrados en el catalogo.");
         } else {
             for (Producto p : products) {
-                p.showDetails();
+                System.out.println(p.toString());
             }
         }
     }

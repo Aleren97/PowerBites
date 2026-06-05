@@ -81,7 +81,7 @@ public class VentaController {
             Venta sale = saleService.getById(id);
             
             if (sale != null) {
-                sale.showDetails();
+                System.out.println(sale);
             } else {
                 System.out.println("\nNo se encontro ninguna venta con ese ID.");
             }
@@ -98,7 +98,7 @@ public class VentaController {
             System.out.println("\nNo hay ventas registradas en el sistema.");
         } else {
             for (Venta v : sales) {
-                v.showDetails();
+                System.out.println(v.toString());
             }
         }
     }

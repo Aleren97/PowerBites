@@ -16,13 +16,13 @@ public class Cliente extends Persona {
     public String getAdress() { return adress; }
     public void setAdress(String adress) { this.adress = adress; }
 
+
     @Override
-    public void showDetails() {
-        System.out.println("\n CLIENTE \n");
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + name);
-        System.out.println("Email: " + email);
-        System.out.println("Teléfono: " + phone);
-        System.out.println("Dirección: " + adress + "\n");
+    public String toString() {
+        return "\n Cliente \n" +
+                super.toString() +
+                ", Dirección= '" + adress + '\'' +
+                ", Teléfono= " + phone +
+                '\n';
     }
 }

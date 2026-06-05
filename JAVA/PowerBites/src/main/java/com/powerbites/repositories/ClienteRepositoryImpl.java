@@ -84,7 +84,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public void refresh(Cliente client) {
+    public void update(Cliente client) {
         String sql = "UPDATE CLIENTES SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();

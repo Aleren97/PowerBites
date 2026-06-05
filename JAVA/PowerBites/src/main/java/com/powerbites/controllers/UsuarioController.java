@@ -73,7 +73,7 @@ public class UsuarioController {
             Usuario user = userService.getById(id);
             
             if (user != null) {
-                user.showDetails();
+                System.out.println(user);
             } else {
                 System.out.println("\nNo se encontro ningun usuario con ese ID.");
             }
@@ -90,7 +90,7 @@ public class UsuarioController {
             System.out.println("\nNo hay usuarios registrados.");
         } else {
             for (Usuario u : users) {
-                u.showDetails();
+                System.out.println(u.toString());
             }
         }
     }

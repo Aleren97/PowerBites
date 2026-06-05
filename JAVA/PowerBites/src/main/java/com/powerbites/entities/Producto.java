@@ -30,12 +30,14 @@ public class Producto {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public void showDetails() {
-        System.out.println("\n PRODUCTO \n");
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + name);
-        System.out.println("Descripcion: " + description);
-        System.out.println("Precio: " + price + " euros.");
-        System.out.println("Categoria: " + category + "\n");
+
+    @Override
+    public String toString() {
+        return "\n Producto " +id + "\n" +
+                ", Nombre= '" + name + '\'' +
+                ", Descripción= '" + description + '\'' +
+                ", Precio= " + price + " euros" +
+                ", Categoría= '" + category + '\'' +
+                '\n';
     }
 }

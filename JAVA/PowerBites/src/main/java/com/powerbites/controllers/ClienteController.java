@@ -73,10 +73,10 @@ public class ClienteController {
         
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Cliente client = clientService.getById(id);
+            Cliente cliente = clientService.getById(id);
             
-            if (client != null) {
-                client.showDetails();
+            if (cliente != null) {
+                System.out.println(cliente);
             } else {
                 System.out.println("\nNo se encontro ningun cliente con ese ID.");
             }
@@ -95,7 +95,7 @@ public class ClienteController {
             System.out.println("\nNo hay clientes registrados en la base de datos.");
         } else {
             for (Cliente c : clients) {
-                c.showDetails();
+                System.out.println(c.toString());
             }
         }
     }
