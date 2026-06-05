@@ -86,7 +86,7 @@ public class VentaRepositoryImpl implements VentaRepository {
     }
 
     @Override
-    public void refresh(Venta sale) {
+    public void update(Venta sale) {
         String sql = "UPDATE VENTAS SET cliente_id = ?, usuario_id = ?, fecha = ?, estado = ?, total = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();

@@ -42,7 +42,7 @@ public class ProductoService {
             System.out.println("\nError: El producto que intenta modificar no existe.");
             return;
         }
-        productRepository.refresh(product);
+        productRepository.update(product);
     }
 
     public void deleteProduct(int id) {

@@ -83,7 +83,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public void refresh(Usuario user) {
+    public void update(Usuario user) {
         String sql = "UPDATE USUARIOS SET nombre = ?, email = ?, rol = ?, password_hash = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();

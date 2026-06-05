@@ -11,7 +11,7 @@ public interface VentaRepository {
 
     List<Venta> readAll();
 
-    void refresh(Venta sale);
+    void update(Venta sale);
 
     void delete(int id);
 }

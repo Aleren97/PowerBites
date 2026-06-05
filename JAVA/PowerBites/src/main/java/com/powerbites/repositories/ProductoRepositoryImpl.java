@@ -83,7 +83,7 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     }
 
     @Override
-    public void refresh(Producto product) {
+    public void update(Producto product) {
         String sql = "UPDATE PRODUCTOS SET nombre = ?, descripcion = ?, precio = ?, categoria = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();

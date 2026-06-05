@@ -83,7 +83,7 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
     }
 
     @Override
-    public void refresh(DetalleVenta detail) {
+    public void update(DetalleVenta detail) {
         String sql = "UPDATE DETALLE_VENTA SET venta_id = ?, producto_id = ?, cantidad = ?, precio_unitario = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();

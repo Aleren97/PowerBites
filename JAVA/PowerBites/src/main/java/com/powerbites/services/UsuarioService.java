@@ -38,7 +38,7 @@ public class UsuarioService {
             System.out.println("\nError: El usuario que intenta modificar no existe.");
             return;
         }
-        userRepository.refresh(user);
+        userRepository.update(user);
     }
 
     public void deleteUser(int id) {

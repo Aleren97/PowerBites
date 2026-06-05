@@ -11,7 +11,7 @@ public interface ProductoRepository {
 
     List<Producto> readAll();
 
-    void refresh(Producto product);
+    void update(Producto product);
 
     void delete(int id);
 }
