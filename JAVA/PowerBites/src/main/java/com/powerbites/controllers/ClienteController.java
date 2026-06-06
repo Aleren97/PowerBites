@@ -108,9 +108,9 @@ public class ClienteController {
             Cliente currentClient = clientService.getById(id);
 
             if (currentClient != null) {
-                System.out.println("\nDeje el campo en blanco y pulse Enter si no desea modificarlo.");
+                System.out.println("\nDeje el campo en blanco y pulse 'Enter' si no desea modificarlo.");
 
-                System.out.print("\nNuevo Nombre (" + currentClient.getName() + "): ");
+                System.out.print("\nNuevo Nombre '(" + currentClient.getName() + ")': ");
                 String name = scanner.nextLine();
                 if (!name.isEmpty()) currentClient.setName(name);
 

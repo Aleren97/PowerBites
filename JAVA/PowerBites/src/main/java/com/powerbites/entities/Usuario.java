@@ -20,8 +20,8 @@ public class Usuario extends Persona {
     @Override
     public String toString() {
         return "\n Usuario \n" +
-                "rol='" + rol +
                 super.toString() +
+                "rol= '" + rol +
                 '\n';
     }
 }

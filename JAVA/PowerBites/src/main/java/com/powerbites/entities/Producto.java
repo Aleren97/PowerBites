@@ -33,8 +33,8 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "\n Producto " +id + "\n" +
-                ", Nombre= '" + name + '\'' +
+        return "\n Producto " + "id= " +id + "\n" +
+                "Nombre= '" + name + '\'' +
                 ", Descripción= '" + description + '\'' +
                 ", Precio= " + price + " euros" +
                 ", Categoría= '" + category + '\'' +

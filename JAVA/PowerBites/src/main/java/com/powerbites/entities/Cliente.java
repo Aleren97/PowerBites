@@ -21,7 +21,7 @@ public class Cliente extends Persona {
     public String toString() {
         return "\n Cliente \n" +
                 super.toString() +
-                ", Dirección= '" + adress + '\'' +
+                "Dirección= '" + adress + '\'' +
                 ", Teléfono= " + phone +
                 '\n';
     }

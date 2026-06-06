@@ -24,7 +24,7 @@ public abstract class Persona {
     public String toString() {
         return " id= " + id +
                 ", name= '" + name + '\'' +
-                ", email= '" + email + '\'' +
+                ", email= '" + email + ',' +
                 '\n';
     }
 }

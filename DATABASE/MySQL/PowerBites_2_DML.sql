@@ -14,7 +14,7 @@ INSERT INTO `Clientes` (`nombre`, `email`, `telefono`, `direccion`) VALUES
 ('Invincibles Gym', 'invincibles@gym.com', '611000111', 'Trophy Room 49');
 
 -- USUARIOS
-INSERT INTO `Usuarios` (`nombre`, `email`, `rol`, `password hash`) VALUES 
+INSERT INTO `Usuarios` (`nombre`, `email`, `rol`, `password_hash`) VALUES 
 ('Laura Comercial', 'laura@powerbites.com', 'Ventas', 'hash123'),
 ('Pedro Distribucion', 'pedro@powerbites.com', 'Logistica', 'hash456'),
 ('Admin General', 'admin@powerbites.com', 'Administrador', 'hash789'),
@@ -40,7 +40,7 @@ INSERT INTO `Productos` (`nombre`, `descripcion`, `precio`, `categoria`) VALUES
 ('Invincibles Bar', 'Barrita oro', 3.50, 'Carbohidratos');
 
 -- VENTAS
-INSERT INTO `Ventas` (`cliente id`, `usuario id`, `fecha`, `estado`, `total`) VALUES 
+INSERT INTO `Ventas` (`cliente_id`, `usuario_id`, `fecha`, `estado`, `total`) VALUES 
 (1, 1, '2023-10-01', 'Completado', 125.00),
 (2, 4, '2023-10-02', 'Pendiente', 90.00),
 (3, 1, '2023-10-03', 'Enviado', 150.00),
@@ -53,7 +53,7 @@ INSERT INTO `Ventas` (`cliente id`, `usuario id`, `fecha`, `estado`, `total`) VA
 (10, 10, '2023-10-10', 'Pendiente', 400.00);
 
 -- DETALLE VENTA
-INSERT INTO `Detalle Venta` (`venta id`, `producto id`, `cantidad`, `precio unitario`) VALUES 
+INSERT INTO `Detalle_Venta` (`venta_id`, `producto_id`, `cantidad`, `precio_unitario`) VALUES 
 (1, 1, 50, 2.50),
 (2, 2, 50, 1.80),
 (3, 4, 50, 3.00),

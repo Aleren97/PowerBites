@@ -41,12 +41,12 @@ public class Venta {
 
     @Override
     public String toString() {
-        return "\n Venta " +id + "\n" +
-                ", ClienteId=" + clientId +
-                ", UsuarioId=" + userId +
-                ", Fecha=" + date.toString() +
-                ", Estado='" + status + '\'' +
-                ", Total=" + total + " euros" +
+        return "\n Venta " + "id= " +id + "\n" +
+                "ClienteId= " + clientId +
+                ", UsuarioId= " + userId +
+                ", Fecha= " + date.toString() +
+                ", Estado= '" + status + '\'' +
+                ", Total= " + total + " euros" +
                 '\n';
     }
 }

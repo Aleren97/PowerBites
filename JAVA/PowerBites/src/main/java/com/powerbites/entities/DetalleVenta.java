@@ -33,8 +33,8 @@ public class DetalleVenta {
 
     @Override
     public String toString() {
-        return "\n DetalleVenta " +id + "\n"+
-                ", saleId= " + saleId +
+        return "\n DetalleVenta " + "id= " +id + "\n"+
+                "saleId= " + saleId +
                 ", productId= " + productId +
                 ", amount= " + amount +
                 ", currentPrice= " + currentPrice +
