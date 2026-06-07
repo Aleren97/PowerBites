@@ -90,7 +90,16 @@ public class UsuarioController {
             System.out.println("\nNo hay usuarios registrados.");
         } else {
             for (Usuario u : users) {
-                System.out.println(u.toString());
+
+                for (char letra : u.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

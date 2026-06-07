@@ -11,16 +11,12 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public void create(Cliente client) {
-
         String sql = "INSERT INTO CLIENTES (nombre, email, telefono, direccion) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, client.getName());
-            stmt.setString(2, client.getEmail());
-            stmt.setString(3, client.getPhone());
-            stmt.setString(4, client.getAdress());
+            setClienteParameters(stmt, client);
 
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {
@@ -37,18 +33,11 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         String sql = "SELECT * FROM CLIENTES";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Cliente c = new Cliente(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("email"),
-                        rs.getString("telefono"),
-                        rs.getString("direccion")
-                );
-                clients.add(c);
+                clients.add(mapResultSetToCliente(rs));
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener los clientes: " + e.getMessage());
@@ -62,19 +51,13 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         String sql = "SELECT * FROM CLIENTES WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    client = new Cliente(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("email"),
-                            rs.getString("telefono"),
-                            rs.getString("direccion")
-                    );
+                    client = mapResultSetToCliente(rs);
                 }
             }
         } catch (SQLException e) {
@@ -83,17 +66,18 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         return client;
     }
 
+
+
+
     @Override
     public void update(Cliente client) {
         String sql = "UPDATE CLIENTES SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, client.getName());
-            stmt.setString(2, client.getEmail());
-            stmt.setString(3, client.getPhone());
-            stmt.setString(4, client.getAdress());
+            setClienteParameters(stmt, client);
+
             stmt.setInt(5, client.getId());
 
             int rows = stmt.executeUpdate();
@@ -125,5 +109,22 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         } catch (SQLException e) {
             System.err.println("Error al eliminar el cliente: " + e.getMessage());
         }
+    }
+
+    private Cliente mapResultSetToCliente(ResultSet rs) throws SQLException {
+        return new Cliente(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("email"),
+                rs.getString("telefono"),
+                rs.getString("direccion")
+        );
+    }
+
+    private void setClienteParameters(PreparedStatement stmt, Cliente client) throws SQLException {
+        stmt.setString(1, client.getName());
+        stmt.setString(2, client.getEmail());
+        stmt.setString(3, client.getPhone());
+        stmt.setString(4, client.getAdress());
     }
 }

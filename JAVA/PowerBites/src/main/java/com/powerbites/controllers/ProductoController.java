@@ -99,7 +99,16 @@ public class ProductoController {
             System.out.println("\nNo hay productos registrados en el catalogo.");
         } else {
             for (Producto p : products) {
-                System.out.println(p.toString());
+
+                for (char letra : p.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

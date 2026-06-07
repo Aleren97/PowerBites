@@ -88,14 +88,24 @@ public class ClienteController {
 
     private void list() {
         System.out.println("\n LISTA DE CLIENTES \n");
-        
+
         List<Cliente> clients = clientService.getAll();
-        
+
         if (clients.isEmpty()) {
             System.out.println("\nNo hay clientes registrados en la base de datos.");
         } else {
+
             for (Cliente c : clients) {
-                System.out.println(c.toString());
+
+                for (char letra : c.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

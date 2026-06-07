@@ -96,7 +96,16 @@ public class DetalleVentaController {
             System.out.println("\nNo hay lineas de detalle registradas.");
         } else {
             for (DetalleVenta d : details) {
-                System.out.println(d.toString());
+
+                for (char letra : d.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }
