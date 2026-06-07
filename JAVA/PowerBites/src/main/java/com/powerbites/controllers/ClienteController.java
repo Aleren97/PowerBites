@@ -172,17 +172,4 @@ public class ClienteController {
             com.powerbites.util.GestorExportacion.exportClientsCSV(clients);
         }
     }
-
-    public void mostrarMejorCliente() {
-        System.out.println("\n CONSULTANDO BASE DE DATOS ");
-
-        Cliente vip = clientService.obtenerMejorCliente();
-
-        if (vip != null) {
-            System.out.println(" DATOS DEL CLIENTE ESTRELLA ");
-            System.out.println(vip);
-        } else {
-            System.out.println("\n No se pudo determinar el mejor cliente porque no hay ventas.");
-        }
-    }
 }
