@@ -9,6 +9,8 @@ public class ClienteController {
 
     private final ClienteService clientService;
     private final Scanner scanner;
+    public static final String RESET = "\u001B[0m";
+    public static final String Verde = "\u001B[32m";
 
     public ClienteController() {
         this.clientService = new ClienteService();
@@ -19,13 +21,14 @@ public class ClienteController {
         int option = -1;
         
         while (option != 0) {
-            System.out.println("\n GESTIÓN DE CLIENTES \n");
+            System.out.println(Verde+ "\n GESTIÓN DE CLIENTES \n" + RESET);
             System.out.println("1. Registrar nuevo cliente");
             System.out.println("2. Buscar cliente por ID");
             System.out.println("3. Listar todos los clientes");
             System.out.println("4. Modificar cliente");
             System.out.println("5. Eliminar cliente");
             System.out.println("6. Exportar clientes a CSV");
+            System.out.println("7. Mostrar mejor cliente");
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
@@ -43,6 +46,7 @@ public class ClienteController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 6 -> export();
+                case 7 -> clientService.obtenerMejorCliente();
                 case 0 -> System.out.println("\nSaliendo del menu de clientes...");
                 default -> System.out.println("\nOpcion no valida.");
             }
@@ -166,6 +170,19 @@ public class ClienteController {
             System.out.println("\nNo hay clientes registrados en la base de datos para exportar.");
         } else {
             com.powerbites.util.GestorExportacion.exportClientsCSV(clients);
+        }
+    }
+
+    public void mostrarMejorCliente() {
+        System.out.println("\n CONSULTANDO BASE DE DATOS ");
+
+        Cliente vip = clientService.obtenerMejorCliente();
+
+        if (vip != null) {
+            System.out.println(" DATOS DEL CLIENTE ESTRELLA ");
+            System.out.println(vip);
+        } else {
+            System.out.println("\n No se pudo determinar el mejor cliente porque no hay ventas.");
         }
     }
 }

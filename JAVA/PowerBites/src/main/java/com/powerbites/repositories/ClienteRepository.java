@@ -14,4 +14,6 @@ public interface ClienteRepository {
     void update(Cliente client);
 
     void delete(int id);
+
+    Cliente findMejorCliente();
 }

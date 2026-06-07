@@ -111,6 +111,42 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         }
     }
 
+    @Override
+    public Cliente findMejorCliente() {
+        String sql = "SELECT cliente_id, SUM(total) AS total_gastado FROM VENTAS GROUP BY cliente_id " +
+                "ORDER BY total_gastado DESC LIMIT 1";
+
+        Cliente mejorCliente = null;
+
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                int idMejorCliente = rs.getInt("cliente_id");
+                double totalGastado = rs.getDouble("total_gastado");
+
+                mejorCliente = readById(idMejorCliente);
+
+                if (mejorCliente != null) {
+                    String RESET = "\u001B[0m";
+                    String YELLOW_BOLD = "\u001B[1;33m";
+
+                    System.out.println("¡Cálculo completado! El mejor cliente es " +
+                            YELLOW_BOLD + mejorCliente.getName() + RESET +
+                            " con un gasto total de " + totalGastado + "€.");
+                }
+            } else {
+                System.out.println("No se han encontrado ventas registradas para calcular el mejor cliente.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al calcular el mejor cliente: " + e.getMessage());
+        }
+
+        return mejorCliente;
+    }
+
     private Cliente mapResultSetToCliente(ResultSet rs) throws SQLException {
         return new Cliente(
                 rs.getInt("id"),

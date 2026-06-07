@@ -9,6 +9,8 @@ public class UsuarioController {
 
     private final UsuarioService userService;
     private final Scanner scanner;
+    public static final String RESET = "\u001B[0m";
+    public static final String Azul = "\u001B[34m";
 
     public UsuarioController() {
         this.userService = new UsuarioService();
@@ -18,7 +20,7 @@ public class UsuarioController {
     public void showMenuUser() {
         int option = -1;
         while (option != 0) {
-            System.out.println("\n GESTION DE USUARIOS (COMERCIALES) \n");
+            System.out.println(Azul + "\n GESTION DE USUARIOS (COMERCIALES) \n" + RESET);
             System.out.println("1. Registrar nuevo usuario");
             System.out.println("2. Buscar usuario por ID");
             System.out.println("3. Listar todos los usuarios");

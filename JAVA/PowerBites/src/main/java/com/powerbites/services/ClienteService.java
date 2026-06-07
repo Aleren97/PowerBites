@@ -48,4 +48,10 @@ public class ClienteService {
         }
         clientRepository.delete(id);
     }
+
+
+    public Cliente obtenerMejorCliente() {
+
+        return clientRepository.findMejorCliente();
+    }
 }
