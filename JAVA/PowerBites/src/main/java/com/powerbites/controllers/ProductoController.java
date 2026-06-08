@@ -27,7 +27,7 @@ public class ProductoController {
             System.out.println("4. Modificar producto");
             System.out.println("5. Eliminar producto");
             System.out.println("0. Volver al menu principal");
-            System.out.print("Seleccione una opcion: ");
+            System.out.print("Seleccione una opción: ");
 
             try {
                 option = Integer.parseInt(scanner.nextLine());
@@ -43,7 +43,7 @@ public class ProductoController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 0 -> System.out.println("\nSaliendo del catalogo de productos...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -54,7 +54,7 @@ public class ProductoController {
         System.out.print("\nNombre: ");
         String name = scanner.nextLine();
         
-        System.out.print("Descripcion: ");
+        System.out.print("Descripción: ");
         String description = scanner.nextLine();
 
         double price = 0.0;
@@ -70,7 +70,7 @@ public class ProductoController {
             }
         }
 
-        System.out.print("\nCategoria (Ej: Proteina, Vegana...): ");
+        System.out.print("\nCategoria (Ej: Proteína, Vegana...): ");
         String category = scanner.nextLine();
 
         Producto newProduct = new Producto(0, name, description, price, category);
@@ -87,7 +87,7 @@ public class ProductoController {
             if (product != null) {
                 System.out.println(product);
             } else {
-                System.out.println("\nNo se encontro ningun producto con ese ID.");
+                System.out.println("\nNo se encontró ningún producto con ese ID.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");
@@ -130,7 +130,7 @@ public class ProductoController {
                 
                 if (!name.isEmpty()) currentProduct.setName(name);
 
-                System.out.print("Nueva Descripcion (" + currentProduct.getDescription() + "): ");
+                System.out.print("Nueva Descripción (" + currentProduct.getDescription() + "): ");
                 String description = scanner.nextLine();
                 
                 if (!description.isEmpty()) currentProduct.setDescription(description);
@@ -150,7 +150,7 @@ public class ProductoController {
 
                 productService.modifyProduct(currentProduct);
             } else {
-                System.out.println("\nNo se encontro el producto.");
+                System.out.println("\nNo se encontró el producto.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");

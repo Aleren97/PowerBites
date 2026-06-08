@@ -48,7 +48,7 @@ public class ClienteController {
                 case 6 -> export();
                 case 7 -> clientService.obtenerMejorCliente();
                 case 0 -> System.out.println("\nSaliendo del menu de clientes...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -82,7 +82,7 @@ public class ClienteController {
             if (cliente != null) {
                 System.out.println(cliente);
             } else {
-                System.out.println("\nNo se encontro ningun cliente con ese ID.");
+                System.out.println("\nNo se encontró ningún cliente con ese ID.");
             }
         
         } catch (NumberFormatException e) {

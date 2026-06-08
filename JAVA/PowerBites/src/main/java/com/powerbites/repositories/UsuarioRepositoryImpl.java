@@ -16,12 +16,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // REFACTORIZADO: Usamos el método auxiliar para no duplicar estas líneas
             setUsuarioParameters(stmt, user);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
-                System.out.println("Usuario comercial registrado con exito.");
+                System.out.println("Usuario comercial registrado con éxito.");
             }
         } catch (SQLException e) {
             System.err.println("Error al crear el usuario: " + e.getMessage());
