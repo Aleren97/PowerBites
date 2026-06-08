@@ -15,7 +15,7 @@ public class ProductoService {
 
     public void registerProduct(Producto product) {
         if (product.getName() == null || product.getName().isEmpty()) {
-            System.out.println("\nError: El nombre del producto no puede estar vacio.");
+            System.out.println("\nError: El nombre del producto no puede estar vacío.");
             return;
         }
         if (product.getPrice() < 0) {

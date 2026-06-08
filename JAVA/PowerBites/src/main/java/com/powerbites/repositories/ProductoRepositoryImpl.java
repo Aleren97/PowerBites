@@ -110,7 +110,7 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         return new Producto(
                 rs.getInt("id"),
                 rs.getString("nombre"),
-                rs.getString("descripcion"),
+                rs.getString("descripción"),
                 rs.getDouble("precio"),
                 rs.getString("categoria")
         );

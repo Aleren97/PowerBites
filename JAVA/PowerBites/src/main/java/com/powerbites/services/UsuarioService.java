@@ -15,7 +15,7 @@ public class UsuarioService {
 
     public void registerUser(Usuario user) {
         if (user.getName() == null || user.getName().isEmpty()) {
-            System.out.println("\nError: El nombre del usuario no puede estar vacio.");
+            System.out.println("\nError: El nombre del usuario no puede estar vacío.");
             return;
         }
         userRepository.create(user);

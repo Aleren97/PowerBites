@@ -25,7 +25,7 @@ public class DetalleVentaController {
             System.out.println("4. Modificar detalle");
             System.out.println("5. Eliminar detalle");
             System.out.println("0. Volver al menu principal");
-            System.out.print("Seleccione una opcion: ");
+            System.out.print("Seleccione una opción: ");
 
             try {
                 option = Integer.parseInt(scanner.nextLine());
@@ -41,7 +41,7 @@ public class DetalleVentaController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 0 -> System.out.println("\nSaliendo del modulo de detalles...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -66,7 +66,7 @@ public class DetalleVentaController {
             detailService.registerDetail(newDetail);
 
         } catch (NumberFormatException e) {
-            System.out.println("Error en la entrada de datos. Asegurese de introducir solo numeros.");
+            System.out.println("Error en la entrada de datos. Asegúrese de introducir solo números.");
         }
     }
 
@@ -80,7 +80,7 @@ public class DetalleVentaController {
             if (detail != null) {
                 System.out.println(detail);
             } else {
-                System.out.println("\nNo se encontro ningun detalle con ese ID.");
+                System.out.println("\nNo se encontró ningún detalle con ese ID.");
             }
         
         } catch (NumberFormatException e) {
@@ -142,7 +142,7 @@ public class DetalleVentaController {
 
                 detailService.modifyDetail(currentDetail);
             } else {
-                System.out.println("\nNo se encontro el detalle.");
+                System.out.println("\nNo se encontró el detalle.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");

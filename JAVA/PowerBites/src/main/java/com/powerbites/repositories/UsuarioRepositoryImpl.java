@@ -16,7 +16,6 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // REFACTORIZADO: Usamos el método auxiliar para no duplicar estas líneas
             setUsuarioParameters(stmt, user);
 
             int rows = stmt.executeUpdate();

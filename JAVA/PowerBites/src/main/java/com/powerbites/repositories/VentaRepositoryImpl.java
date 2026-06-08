@@ -75,10 +75,8 @@ public class VentaRepositoryImpl implements VentaRepository {
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // REFACTORIZADO: Reutilizamos el método auxiliar de parámetros
             setVentaParameters(stmt, sale);
 
-            // El ID de la venta va en la sexta posición para el WHERE id = ?
             stmt.setInt(6, sale.getId());
 
             int rows = stmt.executeUpdate();

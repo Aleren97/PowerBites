@@ -48,7 +48,7 @@ public class ClienteController {
                 case 6 -> export();
                 case 7 -> clientService.obtenerMejorCliente();
                 case 0 -> System.out.println("\nSaliendo del menu de clientes...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -82,7 +82,7 @@ public class ClienteController {
             if (cliente != null) {
                 System.out.println(cliente);
             } else {
-                System.out.println("\nNo se encontro ningun cliente con ese ID.");
+                System.out.println("\nNo se encontró ningún cliente con ese ID.");
             }
         
         } catch (NumberFormatException e) {
@@ -132,18 +132,18 @@ public class ClienteController {
                 String email = scanner.nextLine();
                 if (!email.isEmpty()) currentClient.setEmail(email);
 
-                System.out.print("Nuevo Telefono (" + currentClient.getPhone() + "): ");
+                System.out.print("Nuevo Teléfono (" + currentClient.getPhone() + "): ");
                 String phone = scanner.nextLine();
                 if (!phone.isEmpty()) currentClient.setPhone(phone);
 
-                System.out.print("Nueva Direccion (" + currentClient.getAdress() + "): ");
+                System.out.print("Nueva Dirección (" + currentClient.getAdress() + "): ");
                 String adress = scanner.nextLine();
                 if (!adress.isEmpty()) currentClient.setAdress(adress);
 
                 clientService.modifyClient(currentClient);
             
             } else {
-                System.out.println("\nNo se encontro el cliente.");
+                System.out.println("\nNo se encontró el cliente.");
             }
         
         } catch (NumberFormatException e) {

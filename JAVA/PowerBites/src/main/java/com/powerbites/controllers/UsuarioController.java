@@ -27,7 +27,7 @@ public class UsuarioController {
             System.out.println("4. Modificar usuario");
             System.out.println("5. Eliminar usuario");
             System.out.println("0. Volver al menu principal");
-            System.out.print("Seleccione una opcion: ");
+            System.out.print("Seleccione una opción: ");
 
             try {
                 option = Integer.parseInt(scanner.nextLine());
@@ -43,7 +43,7 @@ public class UsuarioController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 0 -> System.out.println("\nSaliendo del menu de usuarios...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -57,10 +57,10 @@ public class UsuarioController {
         System.out.print("Email: ");
         String email = scanner.nextLine();
         
-        System.out.print("Rol (Ventas, Logistica, Administrador...): ");
+        System.out.print("Rol (Ventas, Logística, Administrador...): ");
         String rol = scanner.nextLine();
         
-        System.out.print("Contrasena: ");
+        System.out.print("Contraseña: ");
         String password = scanner.nextLine();
 
         Usuario newUser = new Usuario(0, name, email, rol, password);
@@ -77,7 +77,7 @@ public class UsuarioController {
             if (user != null) {
                 System.out.println(user);
             } else {
-                System.out.println("\nNo se encontro ningun usuario con ese ID.");
+                System.out.println("\nNo se encontró ningún usuario con ese ID.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");
@@ -128,13 +128,13 @@ public class UsuarioController {
                 String rol = scanner.nextLine();
                 if (!rol.isEmpty()) currentUser.setRol(rol);
 
-                System.out.print("Nueva Contrasena: ");
+                System.out.print("Nueva Contraseña: ");
                 String password = scanner.nextLine();
                 if (!password.isEmpty()) currentUser.setPasswordHash(password);
 
                 userService.modifyUser(currentUser);
             } else {
-                System.out.println("\nNo se encontro el usuario.");
+                System.out.println("\nNo se encontró el usuario.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");

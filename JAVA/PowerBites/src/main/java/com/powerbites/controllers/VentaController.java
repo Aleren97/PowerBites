@@ -29,7 +29,7 @@ public class VentaController {
             System.out.println("4. Modificar venta");
             System.out.println("5. Eliminar venta");
             System.out.println("0. Volver al menu principal");
-            System.out.print("Seleccione una opcion: ");
+            System.out.print("Seleccione una opción: ");
 
             try {
                 option = Integer.parseInt(scanner.nextLine());
@@ -45,7 +45,7 @@ public class VentaController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 0 -> System.out.println("\nSaliendo del modulo de ventas...");
-                default -> System.out.println("\nOpcion no valida.");
+                default -> System.out.println("\nOpción no valida.");
             }
         }
     }
@@ -72,7 +72,7 @@ public class VentaController {
             saleService.registerSale(newSale);
 
         } catch (IllegalArgumentException e) {
-            System.out.println("\nError en la entrada de datos. Compruebe los numeros y el formato de la fecha.");
+            System.out.println("\nError en la entrada de datos. Compruebe los números y el formato de la fecha.");
         }
     }
 
@@ -86,7 +86,7 @@ public class VentaController {
             if (sale != null) {
                 System.out.println(sale);
             } else {
-                System.out.println("\nNo se encontro ninguna venta con ese ID.");
+                System.out.println("\nNo se encontró ninguna venta con ese ID.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");
@@ -122,7 +122,7 @@ public class VentaController {
             Venta currentSale = saleService.getById(id);
 
             if (currentSale != null) {
-                System.out.println("\nATENCION: Para mantener la integridad, solo se permite modificar el estado y el total.");
+                System.out.println("\nATENCIÓN: Para mantener la integridad, solo se permite modificar el estado y el total.");
 
                 System.out.print("\nNuevo Estado (" + currentSale.getStatus() + "): ");
                 String status = scanner.nextLine();
@@ -140,7 +140,7 @@ public class VentaController {
 
                 saleService.modifySale(currentSale);
             } else {
-                System.out.println("\nNo se encontro la venta.");
+                System.out.println("\nNo se encontró la venta.");
             }
         } catch (NumberFormatException e) {
             System.out.println("\nID invalido.");
