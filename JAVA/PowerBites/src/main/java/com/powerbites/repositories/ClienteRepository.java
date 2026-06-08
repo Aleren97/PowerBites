@@ -11,7 +11,9 @@ public interface ClienteRepository {
 
     List<Cliente> readAll();
 
-    void refresh(Cliente client);
+    void update(Cliente client);
 
     void delete(int id);
+
+    Cliente findMejorCliente();
 }

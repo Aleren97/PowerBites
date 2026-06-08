@@ -9,6 +9,8 @@ public class ClienteController {
 
     private final ClienteService clientService;
     private final Scanner scanner;
+    public static final String RESET = "\u001B[0m";
+    public static final String Verde = "\u001B[32m";
 
     public ClienteController() {
         this.clientService = new ClienteService();
@@ -19,13 +21,14 @@ public class ClienteController {
         int option = -1;
         
         while (option != 0) {
-            System.out.println("\n GESTIÓN DE CLIENTES \n");
+            System.out.println(Verde+ "\n GESTIÓN DE CLIENTES \n" + RESET);
             System.out.println("1. Registrar nuevo cliente");
             System.out.println("2. Buscar cliente por ID");
             System.out.println("3. Listar todos los clientes");
             System.out.println("4. Modificar cliente");
             System.out.println("5. Eliminar cliente");
             System.out.println("6. Exportar clientes a CSV");
+            System.out.println("7. Mostrar mejor cliente");
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
@@ -43,6 +46,7 @@ public class ClienteController {
                 case 4 -> modify();
                 case 5 -> delete();
                 case 6 -> export();
+                case 7 -> clientService.obtenerMejorCliente();
                 case 0 -> System.out.println("\nSaliendo del menu de clientes...");
                 default -> System.out.println("\nOpcion no valida.");
             }
@@ -73,10 +77,10 @@ public class ClienteController {
         
         try {
             int id = Integer.parseInt(scanner.nextLine());
-            Cliente client = clientService.getById(id);
+            Cliente cliente = clientService.getById(id);
             
-            if (client != null) {
-                client.showDetails();
+            if (cliente != null) {
+                System.out.println(cliente);
             } else {
                 System.out.println("\nNo se encontro ningun cliente con ese ID.");
             }
@@ -88,14 +92,24 @@ public class ClienteController {
 
     private void list() {
         System.out.println("\n LISTA DE CLIENTES \n");
-        
+
         List<Cliente> clients = clientService.getAll();
-        
+
         if (clients.isEmpty()) {
             System.out.println("\nNo hay clientes registrados en la base de datos.");
         } else {
+
             for (Cliente c : clients) {
-                c.showDetails();
+
+                for (char letra : c.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }
@@ -108,9 +122,9 @@ public class ClienteController {
             Cliente currentClient = clientService.getById(id);
 
             if (currentClient != null) {
-                System.out.println("\nDeje el campo en blanco y pulse Enter si no desea modificarlo.");
+                System.out.println("\nDeje el campo en blanco y pulse 'Enter' si no desea modificarlo.");
 
-                System.out.print("\nNuevo Nombre (" + currentClient.getName() + "): ");
+                System.out.print("\nNuevo Nombre '(" + currentClient.getName() + ")': ");
                 String name = scanner.nextLine();
                 if (!name.isEmpty()) currentClient.setName(name);
 

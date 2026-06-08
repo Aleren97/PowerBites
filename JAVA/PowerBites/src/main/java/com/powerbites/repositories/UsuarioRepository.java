@@ -11,7 +11,7 @@ public interface UsuarioRepository {
 
     List<Usuario> readAll();
 
-    void refresh(Usuario user);
+    void update(Usuario user);
 
     void delete(int id);
 }

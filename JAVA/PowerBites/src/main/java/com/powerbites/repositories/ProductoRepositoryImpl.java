@@ -14,12 +14,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         String sql = "INSERT INTO PRODUCTOS (nombre, descripcion, precio, categoria) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDescription());
-            stmt.setDouble(3, product.getPrice());
-            stmt.setString(4, product.getCategory());
+            setProductoParameters(stmt, product);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -36,19 +33,13 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         String sql = "SELECT * FROM PRODUCTOS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    product = new Producto(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("descripcion"),
-                            rs.getDouble("precio"),
-                            rs.getString("categoria")
-                    );
+                    product = mapResultSetToProducto(rs);
                 }
             }
         } catch (SQLException e) {
@@ -63,18 +54,11 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         String sql = "SELECT * FROM PRODUCTOS";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Producto p = new Producto(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("descripcion"),
-                        rs.getDouble("precio"),
-                        rs.getString("categoria")
-                );
-                products.add(p);
+                products.add(mapResultSetToProducto(rs));
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener el catalogo de productos: " + e.getMessage());
@@ -82,17 +66,17 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         return products;
     }
 
+
+
     @Override
-    public void refresh(Producto product) {
+    public void update(Producto product) {
         String sql = "UPDATE PRODUCTOS SET nombre = ?, descripcion = ?, precio = ?, categoria = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDescription());
-            stmt.setDouble(3, product.getPrice());
-            stmt.setString(4, product.getCategory());
+            setProductoParameters(stmt, product);
+
             stmt.setInt(5, product.getId());
 
             int rows = stmt.executeUpdate();
@@ -120,5 +104,22 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         } catch (SQLException e) {
             System.err.println("Error al eliminar el producto: " + e.getMessage());
         }
+    }
+
+    private Producto mapResultSetToProducto(ResultSet rs) throws SQLException {
+        return new Producto(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getDouble("precio"),
+                rs.getString("categoria")
+        );
+    }
+
+    private void setProductoParameters(PreparedStatement stmt, Producto product) throws SQLException {
+        stmt.setString(1, product.getName());
+        stmt.setString(2, product.getDescription());
+        stmt.setDouble(3, product.getPrice());
+        stmt.setString(4, product.getCategory());
     }
 }

@@ -20,5 +20,11 @@ public abstract class Persona {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public abstract void showDetails();
+    @Override
+    public String toString() {
+        return " id= " + id +
+                ", name= '" + name + '\'' +
+                ", email= '" + email + ',' +
+                '\n';
+    }
 }

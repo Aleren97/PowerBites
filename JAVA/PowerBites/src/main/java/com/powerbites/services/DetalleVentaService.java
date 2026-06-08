@@ -42,7 +42,7 @@ public class DetalleVentaService {
             System.out.println("\nError: La linea de detalle que intenta modificar no existe.");
             return;
         }
-        detailRepository.refresh(detail);
+        detailRepository.update(detail);
     }
 
     public void deleteDetail(int id) {

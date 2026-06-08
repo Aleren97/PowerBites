@@ -9,6 +9,8 @@ public class ProductoController {
 
     private final ProductoService productService;
     private final Scanner scanner;
+    public static final String RESET = "\u001B[0m";
+    public static final String Amarillo = "\u001B[33m";
 
     public ProductoController() {
         this.productService = new ProductoService();
@@ -18,7 +20,7 @@ public class ProductoController {
     public void showMenuProducts() {
         int option = -1;
         while (option != 0) {
-            System.out.println("\n CATALOGO DE PRODUCTOS \n");
+            System.out.println(Amarillo + "\n CATALOGO DE PRODUCTOS \n" + RESET);
             System.out.println("1. Registrar nuevo producto");
             System.out.println("2. Buscar producto por ID");
             System.out.println("3. Listar todos los productos");
@@ -83,7 +85,7 @@ public class ProductoController {
             Producto product = productService.getById(id);
             
             if (product != null) {
-                product.showDetails();
+                System.out.println(product);
             } else {
                 System.out.println("\nNo se encontro ningun producto con ese ID.");
             }
@@ -99,7 +101,16 @@ public class ProductoController {
             System.out.println("\nNo hay productos registrados en el catalogo.");
         } else {
             for (Producto p : products) {
-                p.showDetails();
+
+                for (char letra : p.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

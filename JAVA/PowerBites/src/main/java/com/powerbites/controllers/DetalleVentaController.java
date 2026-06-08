@@ -78,7 +78,7 @@ public class DetalleVentaController {
             DetalleVenta detail = detailService.getById(id);
             
             if (detail != null) {
-                detail.showDetails();
+                System.out.println(detail);
             } else {
                 System.out.println("\nNo se encontro ningun detalle con ese ID.");
             }
@@ -96,7 +96,16 @@ public class DetalleVentaController {
             System.out.println("\nNo hay lineas de detalle registradas.");
         } else {
             for (DetalleVenta d : details) {
-                d.showDetails();
+
+                for (char letra : d.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

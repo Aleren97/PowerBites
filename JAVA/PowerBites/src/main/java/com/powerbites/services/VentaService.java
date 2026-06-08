@@ -38,7 +38,7 @@ public class VentaService {
             System.out.println("\nError: La venta que intenta modificar no existe.");
             return;
         }
-        saleRepository.refresh(sale);
+        saleRepository.update(sale);
     }
 
     public void deleteSale(int id) {

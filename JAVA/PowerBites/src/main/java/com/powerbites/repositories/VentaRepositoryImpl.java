@@ -14,13 +14,9 @@ public class VentaRepositoryImpl implements VentaRepository {
         String sql = "INSERT INTO VENTAS (cliente_id, usuario_id, fecha, estado, total) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, sale.getClientId());
-            stmt.setInt(2, sale.getUserId());
-            stmt.setDate(3, sale.getDate());
-            stmt.setString(4, sale.getStatus());
-            stmt.setDouble(5, sale.getTotal());
+            setVentaParameters(stmt, sale);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -37,20 +33,13 @@ public class VentaRepositoryImpl implements VentaRepository {
         String sql = "SELECT * FROM VENTAS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    sale = new Venta(
-                            rs.getInt("id"),
-                            rs.getInt("cliente_id"),
-                            rs.getInt("usuario_id"),
-                            rs.getDate("fecha"),
-                            rs.getString("estado"),
-                            rs.getDouble("total")
-                    );
+                    sale = mapResultSetToVenta(rs);
                 }
             }
         } catch (SQLException e) {
@@ -65,19 +54,11 @@ public class VentaRepositoryImpl implements VentaRepository {
         String sql = "SELECT * FROM VENTAS";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Venta v = new Venta(
-                        rs.getInt("id"),
-                        rs.getInt("cliente_id"),
-                        rs.getInt("usuario_id"),
-                        rs.getDate("fecha"),
-                        rs.getString("estado"),
-                        rs.getDouble("total")
-                );
-                sales.add(v);
+                sales.add(mapResultSetToVenta(rs));
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener el registro de ventas: " + e.getMessage());
@@ -85,28 +66,30 @@ public class VentaRepositoryImpl implements VentaRepository {
         return sales;
     }
 
+
+
     @Override
-    public void refresh(Venta sale) {
+    public void update(Venta sale) {
         String sql = "UPDATE VENTAS SET cliente_id = ?, usuario_id = ?, fecha = ?, estado = ?, total = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, sale.getClientId());
-            stmt.setInt(2, sale.getUserId());
-            stmt.setDate(3, sale.getDate());
-            stmt.setString(4, sale.getStatus());
-            stmt.setDouble(5, sale.getTotal());
+            // REFACTORIZADO: Reutilizamos el método auxiliar de parámetros
+            setVentaParameters(stmt, sale);
+
+            // El ID de la venta va en la sexta posición para el WHERE id = ?
             stmt.setInt(6, sale.getId());
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
-                System.out.println("Los datos de la venta se han actualizado correctamente.");
+                System.out.println("Los datos del venta se han actualizado correctamente.");
             }
         } catch (SQLException e) {
             System.err.println("Error al actualizar la venta: " + e.getMessage());
         }
     }
+
 
     @Override
     public void delete(int id) {
@@ -124,5 +107,24 @@ public class VentaRepositoryImpl implements VentaRepository {
         } catch (SQLException e) {
             System.err.println("Error al eliminar la venta. Es posible que tenga detalles asociados: " + e.getMessage());
         }
+    }
+
+    private Venta mapResultSetToVenta(ResultSet rs) throws SQLException {
+        return new Venta(
+                rs.getInt("id"),
+                rs.getInt("cliente_id"),
+                rs.getInt("usuario_id"),
+                rs.getDate("fecha"),
+                rs.getString("estado"),
+                rs.getDouble("total")
+        );
+    }
+
+    private void setVentaParameters(PreparedStatement stmt, Venta sale) throws SQLException {
+        stmt.setInt(1, sale.getClientId());
+        stmt.setInt(2, sale.getUserId());
+        stmt.setDate(3, sale.getDate());
+        stmt.setString(4, sale.getStatus());
+        stmt.setDouble(5, sale.getTotal());
     }
 }

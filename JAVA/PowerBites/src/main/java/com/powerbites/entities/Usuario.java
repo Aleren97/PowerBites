@@ -16,12 +16,12 @@ public class Usuario extends Persona {
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
+
     @Override
-    public void showDetails() {
-        System.out.println("\n USUARIO COMERCIAL \n");
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + name);
-        System.out.println("Email: " + email);
-        System.out.println("Rol: " + rol + "\n");
+    public String toString() {
+        return "\n Usuario \n" +
+                super.toString() +
+                "rol= '" + rol +
+                '\n';
     }
 }

@@ -14,12 +14,9 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         String sql = "INSERT INTO DETALLE_VENTA (venta_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, detail.getSaleId());
-            stmt.setInt(2, detail.getProductId());
-            stmt.setInt(3, detail.getAmount());
-            stmt.setDouble(4, detail.getCurrentPrice());
+            setDetalleVentaParameters(stmt, detail);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -36,19 +33,13 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         String sql = "SELECT * FROM DETALLE_VENTA WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    detail = new DetalleVenta(
-                            rs.getInt("id"),
-                            rs.getInt("venta_id"),
-                            rs.getInt("producto_id"),
-                            rs.getInt("cantidad"),
-                            rs.getDouble("precio_unitario")
-                    );
+                    detail = mapResultSetToDetalleVenta(rs);
                 }
             }
         } catch (SQLException e) {
@@ -63,18 +54,11 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         String sql = "SELECT * FROM DETALLE_VENTA";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                DetalleVenta d = new DetalleVenta(
-                        rs.getInt("id"),
-                        rs.getInt("venta_id"),
-                        rs.getInt("producto_id"),
-                        rs.getInt("cantidad"),
-                        rs.getDouble("precio_unitario")
-                );
-                details.add(d);
+                details.add(mapResultSetToDetalleVenta(rs));
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener los detalles de venta: " + e.getMessage());
@@ -82,17 +66,17 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         return details;
     }
 
+
+
     @Override
-    public void refresh(DetalleVenta detail) {
+    public void update(DetalleVenta detail) {
         String sql = "UPDATE DETALLE_VENTA SET venta_id = ?, producto_id = ?, cantidad = ?, precio_unitario = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, detail.getSaleId());
-            stmt.setInt(2, detail.getProductId());
-            stmt.setInt(3, detail.getAmount());
-            stmt.setDouble(4, detail.getCurrentPrice());
+            setDetalleVentaParameters(stmt, detail);
+
             stmt.setInt(5, detail.getId());
 
             int filasAfectadas = stmt.executeUpdate();
@@ -120,5 +104,22 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         } catch (SQLException e) {
             System.err.println("Error al eliminar el detalle de venta: " + e.getMessage());
         }
+    }
+
+    private DetalleVenta mapResultSetToDetalleVenta(ResultSet rs) throws SQLException {
+        return new DetalleVenta(
+                rs.getInt("id"),
+                rs.getInt("venta_id"),
+                rs.getInt("producto_id"),
+                rs.getInt("cantidad"),
+                rs.getDouble("precio_unitario")
+        );
+    }
+
+    private void setDetalleVentaParameters(PreparedStatement stmt, DetalleVenta detail) throws SQLException {
+        stmt.setInt(1, detail.getSaleId());
+        stmt.setInt(2, detail.getProductId());
+        stmt.setInt(3, detail.getAmount());
+        stmt.setDouble(4, detail.getCurrentPrice());
     }
 }

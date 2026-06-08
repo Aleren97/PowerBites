@@ -14,12 +14,10 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         String sql = "INSERT INTO USUARIOS (nombre, email, rol, password_hash) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getRol());
-            stmt.setString(4, user.getPasswordHash());
+            // REFACTORIZADO: Usamos el método auxiliar para no duplicar estas líneas
+            setUsuarioParameters(stmt, user);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -36,19 +34,13 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         String sql = "SELECT * FROM USUARIOS WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    user = new Usuario(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("email"),
-                            rs.getString("rol"),
-                            rs.getString("password_hash")
-                    );
+                    user = mapResultSetToUsuario(rs);
                 }
             }
         } catch (SQLException e) {
@@ -63,18 +55,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         String sql = "SELECT * FROM USUARIOS";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Usuario u = new Usuario(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("email"),
-                        rs.getString("rol"),
-                        rs.getString("password_hash")
-                );
-                users.add(u);
+                users.add(mapResultSetToUsuario(rs));
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener la lista de usuarios: " + e.getMessage());
@@ -82,17 +67,17 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         return users;
     }
 
+
+
     @Override
-    public void refresh(Usuario user) {
+    public void update(Usuario user) {
         String sql = "UPDATE USUARIOS SET nombre = ?, email = ?, rol = ?, password_hash = ? WHERE id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getRol());
-            stmt.setString(4, user.getPasswordHash());
+            setUsuarioParameters(stmt, user);
+
             stmt.setInt(5, user.getId());
 
             int rows = stmt.executeUpdate();
@@ -120,5 +105,22 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         } catch (SQLException e) {
             System.err.println("Error al eliminar el usuario: " + e.getMessage());
         }
+    }
+
+    private Usuario mapResultSetToUsuario(ResultSet rs) throws SQLException {
+        return new Usuario(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("email"),
+                rs.getString("rol"),
+                rs.getString("password_hash")
+        );
+    }
+
+    private void setUsuarioParameters(PreparedStatement stmt, Usuario user) throws SQLException {
+        stmt.setString(1, user.getName());
+        stmt.setString(2, user.getEmail());
+        stmt.setString(3, user.getRol());
+        stmt.setString(4, user.getPasswordHash());
     }
 }

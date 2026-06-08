@@ -11,6 +11,9 @@ public class VentaController {
     private final VentaService saleService;
     private final Scanner scanner;
 
+    public static final String RESET = "\u001B[0m";
+    public static final String Rojo_Negrita = "\u001B[1;31m";
+
     public VentaController() {
         this.saleService = new VentaService();
         this.scanner = new Scanner(System.in);
@@ -19,7 +22,7 @@ public class VentaController {
     public void showMenuSales() {
         int option = -1;
         while (option != 0) {
-            System.out.println("\n REGISTRO DE VENTAS \n");
+            System.out.println(Rojo_Negrita+ "\n REGISTRO DE VENTAS \n" +RESET);
             System.out.println("1. Registrar nueva venta");
             System.out.println("2. Buscar venta por ID");
             System.out.println("3. Listar todas las ventas");
@@ -81,7 +84,7 @@ public class VentaController {
             Venta sale = saleService.getById(id);
             
             if (sale != null) {
-                sale.showDetails();
+                System.out.println(sale);
             } else {
                 System.out.println("\nNo se encontro ninguna venta con ese ID.");
             }
@@ -98,7 +101,15 @@ public class VentaController {
             System.out.println("\nNo hay ventas registradas en el sistema.");
         } else {
             for (Venta v : sales) {
-                v.showDetails();
+                for (char letra : v.toString().toCharArray()) {
+                    System.out.print(letra);
+
+                    try { Thread.sleep(15);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println();
             }
         }
     }

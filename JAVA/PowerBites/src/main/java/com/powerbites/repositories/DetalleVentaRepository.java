@@ -11,7 +11,7 @@ public interface DetalleVentaRepository {
 
     List<DetalleVenta> readAll();
 
-    void refresh(DetalleVenta detail);
+    void update(DetalleVenta detail);
 
     void delete(int id);
 }
