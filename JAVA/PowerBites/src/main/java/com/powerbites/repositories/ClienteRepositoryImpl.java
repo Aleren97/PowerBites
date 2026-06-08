@@ -152,8 +152,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
                 rs.getInt("id"),
                 rs.getString("nombre"),
                 rs.getString("email"),
-                rs.getString("teléfono"),
-                rs.getString("dirección")
+                rs.getString("telefono"),
+                rs.getString("direccion")
         );
     }
 
